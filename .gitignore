@@ -1,3 +1,59 @@
-*.log
+# Секреты и конфиги с паролями
 .env
+.env.*
+*.secret
+secrets/
+*_credentials*
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars # часто содержит секреты, осторожно
+# Ansible
+*.retry
+# Python
 __pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+# IDE
+.idea/
+.vscode/
+*.swp
+# OS
+.DS_Store
+Thumbs.db
+# Логи и временные файлы
+*.log
+logs/
+tmp/1~# Секреты и конфиги с паролями
+.env
+.env.*
+*.secret
+secrets/
+*_credentials*
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars # часто содержит секреты, осторожно
+# Ansible
+*.retry
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+# IDE
+.idea/
+.vscode/
+*.swp
+# OS
+.DS_Store
+Thumbs.db
+# Логи и временные файлы
+*.log
+logs/
+tmp/
