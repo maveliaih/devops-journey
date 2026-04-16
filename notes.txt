@@ -1,0 +1,1 @@
+Сегодня изучил: git init, status, add, commit
