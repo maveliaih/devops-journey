@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DevOps Flashcards</title>
+<link rel="icon" href="data:image/svg+xml," id="favicon"><script>document.getElementById('favicon').href="data:image/svg+xml,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#f5f5f7'/><text x='16' y='21' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='16' fill='#1c1c1e'>>_</text></svg>`)</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f5f5f7;
+  --surface:#ffffff;
+  --surface2:#f0f0f2;
+  --border:#d1d1d6;
+  --border-strong:#b0b0b8;
+  --accent:#4F46E5;
+  --accent-dim:rgba(79,70,229,0.10);
+  --accent-hover:#4338CA;
+  --green:#16a34a;
+  --green-dim:rgba(22,163,74,0.10);
+  --green-border:rgba(22,163,74,0.25);
+  --red:#dc2626;
+  --red-dim:rgba(220,38,38,0.08);
+  --red-border:rgba(220,38,38,0.20);
+  --yellow:#d97706;
+  --yellow-dim:rgba(217,119,6,0.10);
+  --yellow-border:rgba(217,119,6,0.25);
+  --text:#1c1c1e;
+  --text-secondary:#3a3a3c;
+  --muted:#6e6e73;
+  --code-bg:#f0f0f2;
+  --shadow:0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.06);
+}
+[data-theme="dark"]{
+  --bg:#0e0e10;
+  --surface:#18181b;
+  --surface2:#222228;
+  --border:#2e2e35;
+  --border-strong:#3f3f46;
+  --accent:#7c6af7;
+  --accent-dim:rgba(124,106,247,0.15);
+  --accent-hover:#6d5ce6;
+  --green:#3ecf8e;
+  --green-dim:rgba(62,207,142,0.12);
+  --green-border:rgba(62,207,142,0.25);
+  --red:#f87171;
+  --red-dim:rgba(248,113,113,0.12);
+  --red-border:rgba(248,113,113,0.25);
+  --yellow:#fbbf24;
+  --yellow-dim:rgba(251,191,36,0.12);
+  --yellow-border:rgba(251,191,36,0.25);
+  --text:#e4e4f0;
+  --text-secondary:#a1a1aa;
+  --muted:#71717a;
+  --code-bg:#141418;
+  --shadow:0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.2);
+}
+
+html{
+  background:var(--bg);
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  min-height:-webkit-fill-available;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:2rem 1rem 4rem;
+  -webkit-font-smoothing:antialiased;
+}
+
+.screen{width:100%;max-width:560px;display:none}
+.screen.active{display:block}
+
+/* ── LOGO ── */
+.logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--accent);
+  letter-spacing:.12em;
+  margin-bottom:1.75rem;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  text-transform:uppercase;
+}
+.logo-dot{
+  width:7px;height:7px;
+  background:var(--accent);
+  border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── TYPOGRAPHY ── */
+h1{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:.4rem;color:var(--text)}
+h2{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:1rem;color:var(--text-secondary)}
+.subtitle{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:1.75rem}
+
+/* ── INPUTS ── */
+label{display:block;font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
+input[type=password],input[type=text],textarea,select{
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  padding:11px 14px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s;
+  box-shadow:var(--shadow-sm);
+  -webkit-appearance:none;
+  appearance:none;
+}
+input[type=password]{font-family:'JetBrains Mono',monospace;font-size:13px}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+textarea{resize:vertical;min-height:110px;line-height:1.6}
+.field{margin-bottom:1.25rem}
+.hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.55}
+.hint a{color:var(--accent);text-decoration:none}
+.hint a:hover{text-decoration:underline}
+
+/* ── BUTTONS ── */
+.btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  font-weight:600;
+  padding:12px 20px;
+  cursor:pointer;
+  transition:background .15s, transform .1s, box-shadow .15s;
+  width:100%;
+  margin-top:.75rem;
+  letter-spacing:-.01em;
+  box-shadow:0 1px 3px rgba(79,70,229,0.3);
+}
+.btn:hover{background:var(--accent-hover);box-shadow:0 2px 8px rgba(79,70,229,0.35)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:var(--surface);color:var(--text-secondary);border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{background:var(--surface2);box-shadow:var(--shadow-sm)}
+.btn-sm{font-size:13px;padding:9px 16px;width:auto;margin-top:0}
+.btn-danger{background:#dc2626;box-shadow:0 1px 3px rgba(220,38,38,0.25)}
+.btn-danger:hover{background:#b91c1c}
+
+/* ── HOME SCREEN ── */
+#home-screen{margin-top:4rem}
+.mode-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.mode-big{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:1.5rem 1.25rem;
+  cursor:pointer;
+  transition:border-color .15s, box-shadow .15s, transform .1s;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.mode-big:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim), var(--shadow)}
+.mode-big:active{transform:scale(.98)}
+.mode-big .icon{font-size:32px;margin-bottom:.75rem}
+.mode-big .title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:.35rem}
+.mode-big .desc{font-size:12px;color:var(--muted);line-height:1.5}
+.mode-big.selected{border-color:var(--accent);background:var(--accent-dim)}
+
+/* ── API KEY SCREEN ── */
+#api-screen{margin-top:3rem}
+.saved-key-box{
+  background:var(--green-dim);
+  border:1px solid var(--green-border);
+  border-radius:10px;
+  padding:1rem 1.25rem;
+  margin-bottom:1.25rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.saved-key-info{font-size:13px;color:var(--green)}
+.saved-key-info span{font-family:'JetBrains Mono',monospace;font-size:12px;display:block;margin-top:3px;color:var(--text-secondary)}
+
+/* ── SETUP SCREEN ── */
+#setup-screen{margin-top:2rem}
+.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.stage-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:12px;
+  padding:.875rem 1rem;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  position:relative;
+  box-shadow:var(--shadow-sm);
+}
+.stage-card:hover{border-color:var(--accent)}
+.stage-card.selected{border-color:var(--accent);background:var(--accent-dim)}
+.stage-card .stage-name{font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text)}
+.stage-card .stage-meta{font-size:11px;color:var(--muted)}
+.check{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;background:var(--accent);display:none;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.stage-card.selected .check{display:flex}
+
+.mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.5rem}
+.mode-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:.75rem .6rem;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.mode-card:hover{border-color:var(--accent)}
+.mode-card.selected{border-color:var(--accent);background:var(--accent-dim)}
+.mode-card .mode-icon{font-size:18px;margin-bottom:5px}
+.mode-card .mode-name{font-size:12px;font-weight:600;color:var(--text)}
+.mode-card .mode-desc{font-size:10px;color:var(--muted);margin-top:2px}
+
+.count-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.5rem}
+.count-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:.75rem;
+  cursor:pointer;
+  transition:border-color .15s, background .15s;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.count-card:hover{border-color:var(--accent)}
+.count-card.selected{border-color:var(--accent);background:var(--accent-dim)}
+.count-card .count-label{font-size:13px;font-weight:600;color:var(--text)}
+.count-card .count-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+.divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
+
+/* ── CARD SCREEN ── */
+#card-screen{margin-top:1.5rem}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;gap:12px}
+.progress-wrap{flex:1}
+.progress-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+.progress-info{display:flex;justify-content:space-between;margin-top:5px}
+.progress-info span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.quit-btn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s, background .15s;white-space:nowrap}
+.quit-btn:hover{color:var(--text);background:var(--surface2)}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1.5rem;
+  margin-bottom:1rem;
+  box-shadow:var(--shadow);
+}
+.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:1rem}
+.tag{
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-dim);
+  padding:3px 9px;border-radius:6px;
+}
+.offline-badge{
+  font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);background:var(--surface2);
+  padding:3px 8px;border-radius:6px;margin-left:auto;
+}
+.attempt-dots{display:flex;gap:5px;align-items:center;margin-left:auto}
+.attempt-dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .2s}
+.attempt-dot.used{background:var(--yellow)}
+.attempt-dot.correct{background:var(--green)}
+
+.question{font-size:16px;font-weight:500;line-height:1.65;letter-spacing:-.01em;color:var(--text)}
+code{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--code-bg);
+  border:1px solid var(--border);
+  border-radius:5px;
+  padding:1px 6px;
+  font-size:.85em;
+  color:var(--accent);
+}
+
+.answer-section{margin-top:1.25rem}
+.attempt-label{font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
+
+.result-box{border-radius:10px;padding:1rem 1.25rem;margin-top:.875rem;font-size:14px;line-height:1.7;display:none}
+.result-box.correct{background:var(--green-dim);border:1px solid var(--green-border);color:#15803d}
+.result-box.partial{background:var(--yellow-dim);border:1px solid var(--yellow-border);color:#92400e}
+.result-box.wrong{background:var(--red-dim);border:1px solid var(--red-border);color:#991b1b}
+.verdict{font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem}
+
+.correct-box{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:10px;padding:1rem 1.25rem;margin-top:.875rem;
+  font-size:14px;line-height:1.7;color:var(--text-secondary);display:none;
+}
+.correct-box strong{
+  color:var(--muted);display:block;font-size:11px;
+  letter-spacing:.07em;text-transform:uppercase;margin-bottom:.4rem;
+}
+
+.actions{display:flex;gap:8px;margin-top:.875rem;flex-wrap:wrap}
+.actions .btn{margin-top:0}
+
+.loader{display:none;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-top:.875rem}
+.dot{width:5px;height:5px;background:var(--muted);border-radius:50%;animation:blink 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+/* ── SCORE SCREEN ── */
+#score-screen{text-align:center;margin-top:3rem}
+.score-big{
+  font-family:'JetBrains Mono',monospace;
+  font-size:72px;font-weight:700;
+  color:var(--accent);line-height:1;margin-bottom:.4rem;
+  letter-spacing:-.03em;
+}
+.score-sub{color:var(--muted);font-size:14px;margin-bottom:2rem}
+.score-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.score-cell{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.875rem;box-shadow:var(--shadow-sm)}
+.score-cell .num{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700}
+.score-cell .lbl{font-size:11px;color:var(--muted);margin-top:3px}
+.score-cell.good .num{color:var(--green)}
+.score-cell.meh .num{color:var(--yellow)}
+.score-cell.bad .num{color:var(--red)}
+.topic-breakdown{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1.5rem;text-align:left;box-shadow:var(--shadow-sm)}
+.topic-breakdown h3{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.875rem}
+.topic-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.topic-row:last-child{border-bottom:none}
+.topic-name{color:var(--text-secondary)}
+.topic-score{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{
+  position:fixed;top:16px;right:16px;
+  width:36px;height:36px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  box-shadow:var(--shadow-sm);
+  transition:background .2s, border-color .2s, transform .1s;
+  z-index:999;
+}
+.theme-toggle:hover{border-color:var(--accent);transform:scale(1.05)}
+
+/* ── MOBILE ── */
+@media(max-width:480px){
+  body{padding:1.25rem .875rem 3rem}
+  h1{font-size:24px}
+  .mode-choice{grid-template-columns:1fr 1fr}
+  .mode-big{padding:1.25rem 1rem}
+  .card{padding:1.25rem}
+  .score-big{font-size:56px}
+  .actions{flex-direction:column}
+  .actions .btn{width:100%}
+  #home-screen{margin-top:2rem}
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Сменить тему">🌙</button>
+
+<!-- HOME SCREEN -->
+<div id="home-screen" class="screen active">
+  <div class="logo"><span class="logo-dot"></span>devops-flashcards</div>
+  <h1>DevOps Flashcards</h1>
+  <p class="subtitle">Карточки по Git и Linux. Выбери способ проверки ответов.</p>
+
+  <div class="mode-choice">
+    <div class="mode-big" id="mode-ai" onclick="chooseMode('ai')">
+      <div class="icon">🤖</div>
+      <div class="title">С AI</div>
+      <div class="desc">Умная проверка ответа, фидбек на твои формулировки</div>
+    </div>
+    <div class="mode-big" id="mode-offline" onclick="chooseMode('offline')">
+      <div class="icon">⚡</div>
+      <div class="title">Оффлайн</div>
+      <div class="desc">Без ключа. Сравнение по смыслу через алгоритм</div>
+    </div>
+  </div>
+</div>
+
+<!-- API KEY SCREEN -->
+<div id="api-screen" class="screen">
+  <div class="logo"><span class="logo-dot"></span>devops-flashcards / api ключ</div>
+  <h1>API Ключ</h1>
+  <p class="subtitle">OpenRouter — работает из РФ без VPN.</p>
+
+  <div id="saved-key-section" style="display:none">
+    <div class="saved-key-box">
+      <div class="saved-key-info">
+        Сохранённый ключ
+        <span id="saved-key-preview"></span>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteSavedKey()">Удалить</button>
+    </div>
+    <button class="btn" onclick="useSavedKey()">Использовать сохранённый →</button>
+    <button class="btn btn-ghost" onclick="showNewKeyForm()">Ввести другой ключ</button>
+  </div>
+
+  <div id="new-key-form">
+    <div class="field">
+      <label>OpenRouter API Key</label>
+      <input type="password" id="api-key-input" placeholder="sk-or-..." autocomplete="off" inputmode="text">
+    </div>
+
+    <div class="field">
+      <label>Модель</label>
+      <select id="model-select">
+        <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash — быстрый, умный ($0.0001/запрос)</option>
+        <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — бесплатно, может быть перегружена</option>
+        <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B — бесплатно, стабильнее</option>
+      </select>
+    </div>
+
+    <div class="field" style="display:flex;align-items:center;gap:8px">
+      <input type="checkbox" id="save-key-checkbox" style="width:auto;box-shadow:none;padding:0;border-radius:4px;cursor:pointer">
+      <label for="save-key-checkbox" style="margin:0;cursor:pointer;text-transform:none;font-size:13px;color:var(--text-secondary);letter-spacing:0">Сохранить ключ в браузере</label>
+    </div>
+
+    <p class="hint">Ключ хранится только локально в браузере этого устройства.<br>Получить → <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></p>
+
+    <button class="btn" onclick="saveKey()">Продолжить →</button>
+    <button class="btn btn-ghost" onclick="showScreen('home-screen')">← Назад</button>
+  </div>
+</div>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen" class="screen">
+  <div class="logo"><span class="logo-dot"></span>devops-flashcards / настройка</div>
+  <h2>Этап</h2>
+  <div class="stage-grid" id="stage-grid"></div>
+
+  <h2>Режим</h2>
+  <div class="mode-grid">
+    <div class="mode-card selected" data-mode="ordered" onclick="selectMode(this)">
+      <div class="mode-icon">→</div>
+      <div class="mode-name">По порядку</div>
+      <div class="mode-desc">тема за темой</div>
+    </div>
+    <div class="mode-card" data-mode="random-topic" onclick="selectMode(this)">
+      <div class="mode-icon">⇄</div>
+      <div class="mode-name">Вразброс</div>
+      <div class="mode-desc">в рамках темы</div>
+    </div>
+    <div class="mode-card" data-mode="random-all" onclick="selectMode(this)">
+      <div class="mode-icon">∞</div>
+      <div class="mode-name">Все темы</div>
+      <div class="mode-desc">случайный микс</div>
+    </div>
+  </div>
+
+  <h2>Вопросов на тему</h2>
+  <div class="count-grid">
+    <div class="count-card" data-count="low" onclick="selectCount(this)">
+      <div class="count-label">Мало</div>
+      <div class="count-sub">3 вопроса</div>
+    </div>
+    <div class="count-card selected" data-count="mid" onclick="selectCount(this)">
+      <div class="count-label">Средне</div>
+      <div class="count-sub">5 вопросов</div>
+    </div>
+    <div class="count-card" data-count="high" onclick="selectCount(this)">
+      <div class="count-label">Много</div>
+      <div class="count-sub">8 вопросов</div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="startSession()">Начать сессию →</button>
+  <button class="btn btn-ghost" onclick="goBack()">← Назад</button>
+</div>
+
+<!-- CARD SCREEN -->
+<div id="card-screen" class="screen">
+  <div class="topbar">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-info">
+        <span id="prog-label">0 / 0</span>
+        <span id="prog-correct">✓ 0</span>
+      </div>
+    </div>
+    <button class="quit-btn" onclick="quitSession()">завершить ×</button>
+  </div>
+
+  <div class="card">
+    <div class="card-meta">
+      <span class="tag" id="card-tag"></span>
+      <span class="offline-badge" id="offline-badge" style="display:none">⚡ оффлайн</span>
+      <div class="attempt-dots" id="attempt-dots">
+        <span class="attempt-dot" id="dot1"></span>
+        <span class="attempt-dot" id="dot2"></span>
+      </div>
+    </div>
+    <div class="question" id="question-text"></div>
+
+    <div class="answer-section">
+      <div class="attempt-label" id="attempt-label">Попытка 1 из 2</div>
+      <textarea id="answer-input" placeholder="Пиши своими словами — точность формулировок не важна, важно понимание..."></textarea>
+
+      <div id="result-box" class="result-box">
+        <div class="verdict" id="verdict-text"></div>
+        <div id="result-feedback"></div>
+      </div>
+
+      <div id="correct-box" class="correct-box">
+        <strong>Правильный ответ</strong>
+        <div id="correct-text"></div>
+      </div>
+
+      <div class="loader" id="loader">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <span id="loader-text">Проверяю...</span>
+      </div>
+
+      <div class="actions" id="actions">
+        <button class="btn btn-sm" id="check-btn" onclick="checkAnswer()">Проверить</button>
+        <button class="btn btn-sm btn-ghost" id="next-btn" onclick="nextCard()" style="display:none">Следующий →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE SCREEN -->
+<div id="score-screen" class="screen">
+  <div class="logo"><span class="logo-dot"></span>результат</div>
+  <div class="score-big" id="score-pct">—</div>
+  <div class="score-sub" id="score-sub"></div>
+  <div class="score-grid">
+    <div class="score-cell good"><div class="num" id="s-correct">0</div><div class="lbl">правильно</div></div>
+    <div class="score-cell meh"><div class="num" id="s-partial">0</div><div class="lbl">частично</div></div>
+    <div class="score-cell bad"><div class="num" id="s-wrong">0</div><div class="lbl">неверно</div></div>
+  </div>
+  <div class="topic-breakdown">
+    <h3>По темам</h3>
+    <div id="topic-rows"></div>
+  </div>
+  <button class="btn" onclick="restartSession()">Пройти ещё раз</button>
+  <button class="btn btn-ghost" onclick="showScreen('setup-screen')">← Новая сессия</button>
+</div>
+
+<script>
+// ─── DB ───────────────────────────────────────────────────────────────────────
+const DB = {
+  "stage-00": {
+    label: "Этап 00: Git",
+    topics: [
+      {
+        name: "Git основы",
+        questions: [
+          {
+            q: "Чем <code>git add</code> отличается от <code>git commit</code>? Зачем нужен промежуточный шаг staging area?",
+            a: "git add помещает изменения в staging area (индекс) — промежуточную зону. git commit сохраняет только то что в staging. Это позволяет выбирать какие изменения войдут в коммит, а не коммитить всё подряд."
+          },
+          {
+            q: "Что показывает <code>git diff</code> без аргументов? А <code>git diff --staged</code>?",
+            a: "git diff без аргументов — изменения в рабочей директории которые ещё не добавлены в staging (unstaged). git diff --staged — изменения которые уже добавлены через git add и войдут в следующий коммит."
+          },
+          {
+            q: "Как посмотреть историю коммитов в одну строку? Как найти коммит где было изменено конкретное слово?",
+            a: "git log --oneline — краткая история. git log -S 'слово' — ищет коммиты где это слово было добавлено или удалено (pickaxe). git log --grep 'текст' ищет по сообщению коммита."
+          },
+          {
+            q: "Что такое HEAD в Git? Что значит 'detached HEAD'?",
+            a: "HEAD — указатель на текущий коммит, обычно указывает на ветку. Detached HEAD — HEAD указывает напрямую на коммит, а не на ветку. Это происходит при git checkout <hash>. Новые коммиты в этом состоянии могут потеряться если переключиться на ветку."
+          },
+          {
+            q: "Как отменить последний коммит сохранив изменения в рабочей директории? А как полностью удалить коммит вместе с изменениями?",
+            a: "git reset --soft HEAD~1 — отменяет коммит, изменения остаются в staging. git reset --mixed HEAD~1 (по умолчанию) — отменяет коммит, изменения в рабочей директории. git reset --hard HEAD~1 — удаляет коммит и все изменения безвозвратно."
+          },
+          {
+            q: "Чем <code>git fetch</code> отличается от <code>git pull</code>?",
+            a: "git fetch загружает изменения с remote но не применяет их — обновляет origin/main но твоя ветка не трогается. git pull = git fetch + git merge (или rebase). fetch безопаснее — сначала смотришь что изменилось, потом решаешь что делать."
+          },
+          {
+            q: "Для чего нужен <code>.gitignore</code>? Почему файл который уже закоммичен не игнорируется даже если добавить его в .gitignore?",
+            a: ".gitignore указывает какие файлы Git не должен отслеживать. Уже отслеживаемый файл игнорируется только после git rm --cached <file> — это убирает файл из индекса не удаляя с диска. .gitignore работает только для неотслеживаемых файлов."
+          },
+          {
+            q: "Что делает команда <code>git stash</code>? Как применить сохранённые изменения обратно?",
+            a: "git stash сохраняет незакоммиченные изменения (staged и unstaged) во временное хранилище и возвращает рабочую директорию к HEAD. git stash pop — применяет последнее сохранение и удаляет из стека. git stash list — посмотреть все сохранения."
+          }
+        ]
+      },
+      {
+        name: "Ветки и merge",
+        questions: [
+          {
+            q: "В чём разница между fast-forward merge и merge commit? Когда происходит каждый?",
+            a: "Fast-forward — когда ветка main не ушла вперёд с момента ответвления, Git просто передвигает указатель. Нет лишнего коммита. Merge commit создаётся когда обе ветки имеют независимые коммиты — создаётся новый коммит с двумя родителями."
+          },
+          {
+            q: "Что такое merge conflict? Как он выглядит в файле и как его разрешить?",
+            a: "Конфликт возникает когда в обеих ветках изменена одна строка по-разному. В файле появляются маркеры: <<<<<<< HEAD (твои изменения), ======= (разделитель), >>>>>>> branch (изменения ветки). Нужно вручную отредактировать файл, убрать маркеры, сделать git add и git commit."
+          },
+          {
+            q: "Чем <code>git rebase</code> отличается от <code>git merge</code>? Почему нельзя делать rebase на публичных ветках?",
+            a: "Merge сохраняет историю как есть, создаёт merge commit. Rebase переписывает коммиты ветки поверх другой — история линейная но коммиты новые (другой hash). Нельзя rebasing на публичных ветках — другие разработчики имеют старые хэши, возникнут конфликты при pull."
+          },
+          {
+            q: "Как называется стратегия где разработка ведётся в короткоживущих ветках которые быстро вливаются в main? В чём её преимущество?",
+            a: "Trunk-based development — ветки живут 1-2 дня максимум, постоянно вливаются в main. Преимущество: нет долгоживущих веток с накопившимися конфликтами, CI запускается часто, проблемы находятся рано. Альтернатива Git Flow — сложнее, ветки живут долго."
+          },
+          {
+            q: "Что делает <code>git cherry-pick &lt;hash&gt;</code>?",
+            a: "Берёт конкретный коммит из любой ветки и применяет его в текущую ветку. Создаётся новый коммит с тем же содержимым но другим hash. Полезно когда нужно перенести один фикс в hotfix-ветку не сливая всю feature-ветку."
+          }
+        ]
+      },
+      {
+        name: "GitHub и совместная работа",
+        questions: [
+          {
+            q: "Что такое Pull Request? Зачем он нужен если можно просто сделать push в main?",
+            a: "Pull Request — запрос на вливание ветки в main через интерфейс GitHub. Позволяет провести code review до слияния, запустить CI/CD автоматически, обсудить изменения, сохранить историю решений. Push в main напрямую обходит все эти проверки."
+          },
+          {
+            q: "Для чего нужен <code>git remote -v</code>? Что такое origin?",
+            a: "git remote -v показывает все настроенные удалённые репозитории с URL. origin — стандартное имя для основного remote, который был задан при clone или add remote. Можно иметь несколько remote (origin, upstream, fork)."
+          },
+          {
+            q: "Что такое Conventional Commits? Приведи пример правильного и неправильного сообщения коммита.",
+            a: "Стандарт для сообщений коммитов: тип(scope): описание. Правильно: feat(auth): add JWT token validation, fix(api): handle null response from database. Неправильно: fixed stuff, update, WIP. Нужно для автогенерации CHANGELOG и понимания истории."
+          },
+          {
+            q: "Как SSH аутентификация отличается от HTTPS при работе с GitHub? Почему SSH предпочтительнее?",
+            a: "HTTPS требует логин/пароль или personal access token при каждой операции. SSH использует пару ключей — приватный у тебя, публичный на GitHub. После настройки не нужно вводить данные. SSH предпочтительнее для частой работы, более безопасен, не требует хранить токены."
+          },
+          {
+            q: "Что такое GitHub Actions? Для чего используется в DevOps?",
+            a: "CI/CD платформа встроенная в GitHub. Workflow — набор jobs которые запускаются по событиям (push, PR, schedule). Используется для: запуска тестов при каждом PR, сборки Docker образов, деплоя на сервер, линтинга кода, автоматической генерации CHANGELOG."
+          }
+        ]
+      }
+    ]
+  },
+  "stage-01": {
+    label: "Этап 01: Linux",
+    topics: [
+      {
+        name: "Навигация и файлы",
+        questions: [
+          {
+            q: "Чем отличается абсолютный путь от относительного? Приведи пример каждого.",
+            a: "Абсолютный начинается с / и всегда указывает одно место: /etc/nginx/nginx.conf. Относительный — от текущей директории: nginx/nginx.conf или ../config. Абсолютный надёжнее в скриптах — не зависит от того где ты находишься."
+          },
+          {
+            q: "Что делает команда <code>cd -</code>? Когда это удобно?",
+            a: "Переходит в предыдущую директорию — как кнопка назад. Удобно когда работаешь в двух директориях попеременно: cd /etc/nginx, что-то посмотрел, cd /var/log, что-то проверил, cd - — вернулся в nginx без повторного набора длинного пути."
+          },
+          {
+            q: "Чем <code>cp -r</code> отличается от <code>cp</code> без флага? Что будет если запустить <code>cp</code> без <code>-r</code> на директорию?",
+            a: "cp без -r копирует только файлы. При попытке скопировать директорию выдаст ошибку: 'omitting directory'. -r (recursive) копирует директорию со всем содержимым рекурсивно. mv работает с директориями без флагов."
+          },
+          {
+            q: "Зачем нужны символические ссылки (symlink)? Как они используются при деплое?",
+            a: "Symlink — ярлык на файл или директорию. При деплое используют паттерн: /opt/app/v1.2.3 (реальная версия), /opt/app/current → symlink на неё. При обновлении меняешь только symlink на новую версию. Откат — переключить симлинк обратно. Это мгновенно и без прерывания сервиса."
+          },
+          {
+            q: "Как посмотреть большой файл не выводя его весь в терминал? Как следить за файлом в реальном времени?",
+            a: "less file.txt — постраничный просмотр, q для выхода, / для поиска. tail -f file.txt — следить за файлом в реальном времени, новые строки появляются по мере добавления. Для логов всегда tail -f или journalctl -f, а не cat."
+          },
+          {
+            q: "Почему <code>rm -rf</code> опасен? Какая хорошая привычка перед его запуском?",
+            a: "rm -rf удаляет рекурсивно без подтверждений — необратимо. Ошибка в пути (пробел, неправильная переменная) может удалить не то. Хорошая привычка: сначала ls по тому же пути, убедиться что это именно то что хочешь удалить, потом rm -rf."
+          },
+          {
+            q: "Для чего нужны хоткеи <code>Ctrl+R</code> и <code>!!</code> в терминале?",
+            a: "Ctrl+R — интерактивный поиск по истории команд, начинаешь печатать и находишь нужную. Очень полезно для длинных команд которые уже запускал. !! — повторить последнюю команду. Часто используется как sudo !! когда забыл написать sudo."
+          },
+          {
+            q: "Что делают флаги <code>ls -lah</code>? Что означает каждая буква?",
+            a: "-l (long) — подробный список с правами, владельцем, размером, датой. -a (all) — показывать скрытые файлы (начинаются с точки: .bashrc, .ssh). -h (human) — размеры в читаемом виде (KB, MB, GB) вместо байт."
+          }
+        ]
+      },
+      {
+        name: "Файловая система",
+        questions: [
+          {
+            q: "Что хранится в <code>/etc</code>, <code>/var</code> и <code>/tmp</code>? Что у них общего и чем они различаются?",
+            a: "/etc — конфигурационные файлы системы и сервисов (статичные, редко меняются). /var — изменяемые данные: логи (/var/log), данные сервисов (/var/lib/docker), кэши. /tmp — временные файлы которые очищаются при перезагрузке."
+          },
+          {
+            q: "Что такое <code>/proc</code>? Это реальные файлы на диске?",
+            a: "/proc — виртуальная файловая система ядра. Файлов на диске нет — они генерируются на лету при обращении. Содержит информацию о процессах (/proc/PID/), памяти, CPU. cat /proc/version, cat /proc/meminfo — читаешь состояние ядра как обычный файл."
+          },
+          {
+            q: "Зачем нужен <code>/dev/null</code>? Приведи практический пример использования.",
+            a: "/dev/null — 'чёрная дыра', всё записанное исчезает. Используется чтобы подавить вывод: command 2>/dev/null убирает ошибки из вывода. curl -s -o /dev/null url — запрос без вывода тела ответа. Полезно в скриптах когда вывод не нужен."
+          },
+          {
+            q: "Где хранятся логи в Linux? Какие файлы смотреть в первую очередь при проблемах?",
+            a: "/var/log/ — системные логи. Ключевые: /var/log/syslog (общий системный), /var/log/auth.log (аутентификация, sudo, SSH). Но для systemd-сервисов лучше journalctl -u servicename — там структурированные логи с фильтрацией."
+          },
+          {
+            q: "Как <code>/proc/&lt;PID&gt;</code> связан с запущенными процессами? Что там можно найти?",
+            a: "Каждый запущенный процесс имеет директорию /proc/PID/ создаваемую ядром. Внутри: cmdline (чем запущен), fd/ (открытые файлы/сокеты), status (состояние, память), environ (переменные окружения). $$ — PID текущего shell, ls /proc/$$ — посмотреть свой процесс."
+          }
+        ]
+      },
+      {
+        name: "Пользователи и права",
+        questions: [
+          {
+            q: "Что означают числа в <code>chmod 755</code>? Расшифруй каждую цифру.",
+            a: "Каждая цифра — права для владельца, группы, остальных. 7=rwx (4+2+1), 5=r-x (4+0+1), 5=r-x. Итого: владелец может всё, группа и остальные могут читать и выполнять но не писать. Типично для директорий и исполняемых файлов."
+          },
+          {
+            q: "Почему права на директорию работают иначе чем на файл? Что будет если есть <code>r</code> но нет <code>x</code>?",
+            a: "На директории: r — видеть список файлов (ls), w — создавать/удалять файлы внутри, x — входить (cd) и обращаться к файлам. Без x нельзя войти даже если есть r — ls покажет имена но при попытке обратиться к файлу будет Permission denied."
+          },
+          {
+            q: "Зачем нужен SUID бит? Как он работает на примере <code>/usr/bin/passwd</code>?",
+            a: "SUID — процесс запускается с правами владельца файла, а не того кто запустил. passwd принадлежит root и должен писать в /etc/shadow (только root). Обычный пользователь запускает passwd → благодаря SUID процесс работает от root → может изменить свой пароль."
+          },
+          {
+            q: "Что делает sticky bit на директории <code>/tmp</code>? Зачем это нужно?",
+            a: "Sticky bit — только владелец файла может его удалить, даже если у всех есть write на директорию. /tmp доступен для записи всем (777), но без sticky bit любой мог бы удалить чужие файлы. Обозначается t в конце: drwxrwxrwt."
+          },
+          {
+            q: "Чем опасен флаг <code>-a</code> в команде <code>usermod</code>? Что произойдёт если забыть его при добавлении в группу?",
+            a: "usermod -G docker user — БЕЗ -a заменяет все группы пользователя на docker. Пользователь потеряет все остальные группы (sudo и прочие). usermod -aG docker user — с -a ДОБАВЛЯЕТ к существующим группам. Всегда -aG, никогда просто -G."
+          },
+          {
+            q: "Как узнать UID, GID и все группы пользователя? Что означают диапазоны UID?",
+            a: "id username — показывает uid, gid и все группы. UID 0 — root. 1-999 — системные пользователи (www-data, docker, postgres) — без home директории, без shell. 1000+ — обычные пользователи. Системные создаются автоматически при установке пакетов."
+          },
+          {
+            q: "Для чего нужен <code>/etc/shadow</code>? Почему пароли не хранятся в <code>/etc/passwd</code>?",
+            a: "/etc/passwd читается всеми — нужен для маппинга uid→имя. Если бы там были хэши паролей, любой пользователь мог бы попытаться их взломать. /etc/shadow доступен только root — там хранятся хэши паролей (SHA-512 с солью)."
+          },
+          {
+            q: "Как создать системного пользователя для сервиса (без возможности входа)?",
+            a: "sudo useradd --system --no-create-home --shell /usr/sbin/nologin servicename. --system — UID в диапазоне 1-999. --no-create-home — нет домашней директории. --shell nologin — нельзя войти как этот пользователь. Используется для сервисов типа nginx, postgres."
+          }
+        ]
+      },
+      {
+        name: "Процессы",
+        questions: [
+          {
+            q: "Что означают коды состояния процесса S, R, D, Z в выводе <code>ps aux</code>?",
+            a: "S (Sleeping) — ждёт события, нормальное состояние. R (Running) — использует CPU. D (Uninterruptible sleep) — ждёт I/O, нельзя прервать. Много D-процессов — проблема с диском. Z (Zombie) — процесс завершился но родитель не забрал exit code. Зависший процесс без ресурсов."
+          },
+          {
+            q: "В чём разница между <code>kill -15</code>, <code>kill -9</code> и <code>kill -1</code>? Когда использовать каждый?",
+            a: "SIGTERM (15) — 'пожалуйста завершись', процесс может сохранить данные и закрыть соединения. Используй первым. SIGKILL (9) — убить немедленно, нельзя поймать, данные могут не сохраниться. Только если SIGTERM не помог. SIGHUP (1) — 'перечитай конфиг', для nginx и sshd без прерывания работы."
+          },
+          {
+            q: "Как запустить процесс в фоне? Как вернуть его на передний план?",
+            a: "command & — запускает в фоне, возвращает управление. jobs — список фоновых задач. fg %1 — вернуть задачу 1 на передний план. Ctrl+Z — заморозить текущий процесс. bg %1 — отправить замороженный процесс в фон. nohup command & — не убивать при закрытии терминала."
+          },
+          {
+            q: "Как найти PID процесса по имени? Назови два способа.",
+            a: "pgrep nginx — возвращает PID(s) процессов с именем nginx. pgrep -l nginx — PID + имя. ps aux | grep nginx | grep -v grep — grep -v grep убирает сам grep из результатов. pidof nginx — ещё один вариант. pgrep предпочтительнее для скриптов."
+          },
+          {
+            q: "Что такое PPID? Как посмотреть дерево процессов?",
+            a: "PPID — Parent Process ID, ID родительского процесса. Все процессы образуют дерево с PID 1 (systemd/init) в корне. ps -ef --forest — показывает дерево с отступами. pstree — более наглядное дерево. Полезно понять какой процесс породил другой."
+          },
+          {
+            q: "Что показывает <code>top</code>? Какими клавишами управлять?",
+            a: "top — интерактивный мониторинг: нагрузка CPU, RAM, список процессов. q — выход. k — kill процесса (вводишь PID). M — сортировка по памяти. P — по CPU. 1 — показать все ядра отдельно. htop — более удобная альтернатива с мышью и цветами."
+          },
+          {
+            q: "Как заморозить и разморозить процесс не убивая его?",
+            a: "kill -STOP PID (или kill -19) — заморозить процесс, он перестаёт выполняться. В ps aux видно STAT = T (stopped). kill -CONT PID (или kill -18) — разморозить, продолжить с того места где остановился. Используется для отладки или временной паузы."
+          },
+          {
+            q: "Как убить все процессы с определённым именем? Как убить процессы конкретного пользователя?",
+            a: "killall nginx — SIGTERM всем процессам с именем nginx. killall -9 nginx — SIGKILL. pkill -u username python3 — убить python3 запущенные от конкретного пользователя. pkill -f 'pattern' — ищет по полной командной строке а не только по имени."
+          }
+        ]
+      },
+      {
+        name: "Сервисы и логи",
+        questions: [
+          {
+            q: "Чем <code>systemctl restart</code> отличается от <code>systemctl reload</code>? Когда использовать каждый?",
+            a: "restart — полная остановка + запуск заново, все активные соединения обрываются. reload — сервис перечитывает конфиг без перезапуска, соединения не прерываются. reload предпочтительнее для nginx в проде — нет downtime. Но не все сервисы поддерживают reload."
+          },
+          {
+            q: "Почему нужно запускать <code>systemctl daemon-reload</code> после изменения unit-файла?",
+            a: "systemd кэширует unit-файлы в памяти. После изменения /etc/systemd/system/service.service нужно daemon-reload чтобы systemd перечитал файлы с диска. Без этого restart будет использовать старый кэшированный unit."
+          },
+          {
+            q: "Как посмотреть логи сервиса за последний час? Как следить за логами в реальном времени?",
+            a: "journalctl -u nginx --since '1 hour ago' — за последний час. journalctl -u nginx -f — следить в реальном времени (как tail -f). journalctl -u nginx -n 50 — последние 50 строк. journalctl -u nginx -p err — только ошибки и выше."
+          },
+          {
+            q: "Что означает секция <code>[Install]</code> с <code>WantedBy=multi-user.target</code> в unit-файле?",
+            a: "WantedBy определяет при каком target запускать сервис автоматически. multi-user.target — обычный режим работы системы (без GUI). systemctl enable создаёт symlink в нужном target. Без этой секции enable работать не будет."
+          },
+          {
+            q: "Как проверить конфиг nginx перед рестартом? Почему это важно в проде?",
+            a: "nginx -t — проверяет синтаксис конфига, выводит ошибки. Если есть ошибки — nginx не применит новый конфиг и сообщит где именно. В проде обязательно: systemctl restart nginx при ошибочном конфиге остановит сервис, nginx -t позволяет поймать ошибку заранее."
+          },
+          {
+            q: "Как посмотреть статус сервиса? Что означает 'enabled' и 'active'?",
+            a: "systemctl status nginx — статус, последние строки лога, PID. Active: active (running) — сейчас запущен. Enabled — будет запускаться автоматически при загрузке. Можно быть active но disabled (запущен вручную, не запустится после ребута) и наоборот."
+          },
+          {
+            q: "Как посмотреть все упавшие сервисы в системе?",
+            a: "systemctl list-units --type=service --state=failed — список всех сервисов в состоянии failed. systemctl --failed — короткий вариант. journalctl -p err -b — все ошибки с момента последней загрузки. journalctl -b -1 — логи предыдущей загрузки (если система крашнулась)."
+          },
+          {
+            q: "Что такое <code>Restart=on-failure</code> в unit-файле? Как это влияет на поведение сервиса?",
+            a: "systemd автоматически перезапускает сервис если он упал (exit code != 0). RestartSec=5 — ждать 5 секунд перед перезапуском. Варианты: on-failure (только при ошибке), always (всегда), on-abnormal (при сигналах). Защищает от временных сбоев без вмешательства."
+          }
+        ]
+      },
+      {
+        name: "Диски и пакеты",
+        questions: [
+          {
+            q: "Чем отличается вывод <code>df</code> от <code>du</code>? Почему они могут показывать разные цифры?",
+            a: "df показывает занятые блоки файловой системы. du считает реальный размер файлов. Расхождение: файл удалён командой rm, но ещё открыт каким-то процессом — df видит место занятым, du нет. Решение: найти процесс через lsof | grep deleted и перезапустить его."
+          },
+          {
+            q: "Что такое inodes? Почему диск может быть 'полным' когда место ещё есть?",
+            a: "Inode — метаданные файла (права, владелец, размер, указатели на данные). Количество inodes ограничено и задаётся при форматировании. Можно исчерпать inodes при наличии свободного места — много маленьких файлов. df -i — проверить использование inodes. Симптом: 'No space left on device' при наличии места."
+          },
+          {
+            q: "Чем <code>apt remove</code> отличается от <code>apt purge</code>?",
+            a: "apt remove удаляет пакет но оставляет конфигурационные файлы — удобно если собираешься переустановить. apt purge удаляет пакет вместе с конфигами. apt autoremove удаляет ставшие ненужными зависимости. Для полной очистки: apt purge + autoremove."
+          },
+          {
+            q: "Зачем нужен <code>apt update</code> перед <code>apt install</code>? Что именно он обновляет?",
+            a: "apt update обновляет только метаданные — списки доступных пакетов и их версий с серверов. Не обновляет сами пакеты. Без apt update apt install может установить устаревшую версию или не найти пакет. apt upgrade — уже обновляет установленные пакеты."
+          },
+          {
+            q: "Как найти какой пакет предоставляет конкретный файл?",
+            a: "dpkg -S /usr/bin/curl — показывает какой пакет установил этот файл. apt-file search filename — поиск по всем пакетам включая неустановленные (нужен apt-file update). Полезно когда нужна команда но не знаешь в каком пакете она."
+          }
+        ]
+      },
+      {
+        name: "Сеть и DNS",
+        questions: [
+          {
+            q: "Чем <code>ss -tlnp</code> лучше <code>netstat</code>? Что означает каждый флаг?",
+            a: "ss — современная замена netstat, быстрее и встроен в iproute2. -t TCP, -l listening (только слушающие), -n numeric (не резолвить имена), -p показывать процесс. Результат: видишь какой сервис на каком порту и PID процесса."
+          },
+          {
+            q: "Как последовательно диагностировать сетевую связность от интерфейса до DNS?",
+            a: "1. ip addr — есть ли IP на интерфейсе? 2. ip route — есть ли шлюз? 3. ping <шлюз> — локальная сеть работает? 4. ping 8.8.8.8 — интернет без DNS работает? 5. ping google.com — DNS работает? Каждый шаг изолирует уровень проблемы."
+          },
+          {
+            q: "Что делает <code>dig +trace google.com</code>? Что ты увидишь в выводе?",
+            a: "Показывает всю цепочку DNS резолюции: root серверы → TLD (.com) → авторитетный NS → A запись. Видишь каждый шаг с временем ответа. Полезно для отладки DNS propagation и понимания как работает резолюция."
+          },
+          {
+            q: "Как проверить только HTTP-код ответа сервера без вывода тела?",
+            a: "curl -o /dev/null -s -w '%{http_code}' https://site.com — -o /dev/null выбрасывает тело, -s убирает прогресс, -w выводит только код. curl -I url — HEAD запрос, только заголовки. Полезно для healthcheck в скриптах."
+          },
+          {
+            q: "Чем отличается <code>dig @8.8.8.8 domain.com</code> от обычного <code>dig domain.com</code>?",
+            a: "dig domain.com использует DNS сервер из /etc/resolv.conf (системный). @8.8.8.8 явно указывает опрашивать Google DNS. Полезно: сравнить что видит Google и твой провайдер — диагностика проблем с DNS, проверка propagation после смены записей."
+          },
+          {
+            q: "Как отправить POST запрос с JSON телом через curl?",
+            a: "curl -X POST https://api.example.com/data -H 'Content-Type: application/json' -d '{\"key\": \"value\"}'. -X POST — метод. -H — заголовок. -d — тело запроса. Без -X POST при наличии -d curl сам определяет POST. -L следовать редиректам."
+          },
+          {
+            q: "Что показывает <code>ip route</code>? Как найти шлюз по умолчанию?",
+            a: "ip route показывает таблицу маршрутизации. Строка 'default via 192.168.1.1 dev eth0' — это шлюз по умолчанию (куда идут пакеты без более специфичного маршрута). ip route | grep default | awk '{print $3}' — получить только IP шлюза."
+          },
+          {
+            q: "Какие типы DNS записей ты знаешь? Для чего нужен каждый?",
+            a: "A — IPv4 адрес домена. AAAA — IPv6. CNAME — алиас на другой домен. MX — почтовые серверы. TXT — произвольный текст (SPF, DKIM верификация). NS — авторитетные серверы имён. SOA — информация о зоне. SRV — адрес сервиса (используется в Kubernetes)."
+          }
+        ]
+      },
+      {
+        name: "SSH",
+        questions: [
+          {
+            q: "Для чего нужен <code>~/.ssh/config</code>? Приведи пример настройки.",
+            a: "Позволяет задать параметры для хостов и подключаться коротко: ssh relay вместо ssh -i ~/.ssh/id_ed25519 ubuntu@1.2.3.4. Пример: Host relay / HostName 1.2.3.4 / User ubuntu / IdentityFile ~/.ssh/id_ed25519 / ServerAliveInterval 60."
+          },
+          {
+            q: "Что такое ProxyJump в SSH? Как подключиться к серверу за NAT через промежуточный сервер?",
+            a: "ProxyJump — подключение через промежуточный сервер автоматически. В config: Host main / ProxyJump relay. Затем ssh main — SSH сначала подключается к relay, потом прыгает на main. Раньше делали через ProxyCommand, ProxyJump удобнее."
+          },
+          {
+            q: "Что делает <code>ssh -L 5433:localhost:5432 server</code>? Как это использовать?",
+            a: "Local port forwarding — пробрасывает локальный порт 5433 через SSH на server:5432. После запуска этой команды psql -h localhost -p 5433 подключается к PostgreSQL на server, даже если порт 5432 закрыт снаружи. Удобно для баз данных в закрытой сети."
+          },
+          {
+            q: "Почему важны права доступа на папку <code>~/.ssh</code> и файлы внутри? Что будет если права неправильные?",
+            a: "~/.ssh должна быть 700 (только владелец), приватный ключ 600 (только владелец читает). Если права более открытые — SSH откажет в подключении с ошибкой 'Permissions too open'. Это защита: если ключ читает кто-то другой — он небезопасен."
+          },
+          {
+            q: "Что такое Agent Forwarding? Зачем нужен и почему приватный ключ не копируется на сервер?",
+            a: "ForwardAgent yes — передаёт SSH агент (не ключ!) через соединение. С relay можно подключиться к main используя ключ который лежит на твоей машине. Приватный ключ никуда не копируется — агент подписывает challenge на твоей машине, по туннелю идут только результаты."
+          },
+          {
+            q: "Как разорвать зависшее SSH соединение когда Ctrl+C не помогает?",
+            a: "Escape sequence: Enter, затем ~. (тильда точка) — разрывает соединение. ~? — список всех escape sequences. ~C — командная строка SSH для добавления port forwarding на лету. Работает только в начале строки (после Enter)."
+          },
+          {
+            q: "Какие настройки в <code>/etc/ssh/sshd_config</code> важно проверить для безопасности?",
+            a: "PermitRootLogin no — запретить вход root напрямую. PasswordAuthentication no — только ключи, не пароли. AllowUsers ubuntu — разрешить только конкретным пользователям. Port 22 (или нестандартный). После изменения: systemctl reload sshd, не restart — чтобы не оборвать текущие сессии."
+          },
+          {
+            q: "Зачем нужен параметр <code>ServerAliveInterval</code> в SSH config?",
+            a: "Отправляет keepalive пакеты каждые N секунд чтобы соединение не разрывалось из-за неактивности. ServerAliveInterval 60 — пинговать каждые 60 сек. ServerAliveCountMax 3 — если 3 раза нет ответа — разорвать. Помогает когда файрвол убивает idle соединения."
+          }
+        ]
+      },
+      {
+        name: "Текстовые утилиты",
+        questions: [
+          {
+            q: "Чем <code>grep -E</code> отличается от обычного <code>grep</code>? Приведи пример.",
+            a: "-E включает расширенные регулярные выражения (ERE). Позволяет: grep -E 'ERROR|WARN' (OR), grep -E '^2024' (начало строки), grep -E '5[0-9]{2}' (5xx коды). Без -E символы | + ? { нужно экранировать. egrep — то же что grep -E."
+          },
+          {
+            q: "Как использовать <code>grep</code> чтобы показать 3 строки контекста вокруг совпадения?",
+            a: "-A N — N строк после совпадения (After). -B N — N строк до (Before). -C N — N строк с обеих сторон (Context). grep -C 3 'ERROR' app.log — показывает ошибку + 3 строки до и после. Полезно чтобы понять что происходило перед ошибкой."
+          },
+          {
+            q: "Объясни команду: <code>awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10</code>",
+            a: "awk '{print $1}' — берёт первое поле каждой строки (IP в nginx логе). sort — сортирует для uniq. uniq -c — считает количество каждого уникального значения. sort -rn — сортирует числово в обратном порядке (самые частые сверху). head -10 — топ 10. Классический pipeline для статистики."
+          },
+          {
+            q: "Как с помощью <code>sed</code> удалить все строки начинающиеся с <code>#</code> и пустые строки?",
+            a: "sed '/^#/d' file.txt — удаляет строки начинающиеся с #. sed '/^$/d' file.txt — удаляет пустые строки. Комбинация: sed '/^#/d; /^$/d' file.txt или пайп. Полезно для чтения конфигов: sudo cat /etc/ssh/sshd_config | sed '/^#/d' | sed '/^$/d'"
+          },
+          {
+            q: "Что делает <code>awk -F: '{print $1, $3}' /etc/passwd</code>?",
+            a: "-F: задаёт разделитель полей — двоеточие. Поля в /etc/passwd разделены :. $1 — имя пользователя, $3 — UID. Выводит имя и UID каждого пользователя. $NF — последнее поле, $0 — вся строка. BEGIN{} — выполняется до обработки, END{} — после."
+          },
+          {
+            q: "Как найти в логе все уникальные IP-адреса?",
+            a: "grep -oE '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}' file.log | sort | uniq — -o выводит только совпадение а не всю строку, -E расширенные regex. Или awk '{print $1}' access.log | sort -u — если IP всегда первое поле."
+          },
+          {
+            q: "Как заменить текст в файле на месте с помощью <code>sed</code>? Как сделать бэкап?",
+            a: "sed -i 's/old/new/g' file.txt — изменяет файл на месте (-i in-place). g — все вхождения в строке, без g — только первое. sed -i.bak 's/old/new/g' file.txt — создаёт file.txt.bak перед изменением. Точку в IP нужно экранировать: 192\\.168\\.1\\.1"
+          },
+          {
+            q: "Что такое pipeline <code>sort | uniq -c | sort -rn</code>? Зачем нужен первый sort?",
+            a: "uniq работает только с соседними строками — убирает дубликаты только если они рядом. Первый sort группирует одинаковые строки вместе. uniq -c считает сколько раз встречается каждая. sort -rn сортирует по числу в обратном порядке. Без первого sort uniq -c даст неверный счёт."
+          }
+        ]
+      },
+      {
+        name: "Пайплайны и перенаправление",
+        questions: [
+          {
+            q: "Почему <code>command > file 2>&1</code> и <code>command 2>&1 > file</code> дают разный результат?",
+            a: "Порядок важен. > file 2>&1: сначала stdout → файл, потом stderr → туда же куда сейчас stdout (файл). Верно. 2>&1 > file: сначала stderr → туда куда сейчас stdout (экран!), потом stdout → файл. stderr идёт на экран, не в файл. Всегда > file в конце, потом 2>&1."
+          },
+          {
+            q: "Что делает <code>tee</code>? Приведи пример когда это полезно.",
+            a: "tee пишет одновременно в stdout и в файл. ps aux | tee /tmp/snapshot.txt | grep nginx — в файле все процессы, на экране только nginx. sudo apt install pkg 2>&1 | tee /tmp/install.log — видишь вывод и сохраняешь лог. Без tee пришлось бы выбирать."
+          },
+          {
+            q: "Чем отличается heredoc с <code>'EOF'</code> в кавычках от heredoc без кавычек?",
+            a: "cat > file << 'EOF' — переменные НЕ подставляются, всё воспринимается буквально. Безопасно для конфигов где есть $ символы. cat > file << EOF — переменные подставляются: $HOST, $PORT заменятся реальными значениями. Для шаблонов конфигов используй без кавычек."
+          },
+          {
+            q: "Как с помощью <code>find</code> найти файлы изменённые за последние 30 минут? Старше 7 дней?",
+            a: "find /path -mmin -30 -type f — изменены за последние 30 минут. find /path -mtime +7 — старше 7 дней (+ значит больше чем). find /path -mtime -1 — за последние 24 часа (- значит меньше чем). -type f только файлы, -type d только директории."
+          },
+          {
+            q: "Зачем нужны флаги <code>-print0</code> и <code>-0</code> при использовании <code>find | xargs</code>?",
+            a: "Обычный xargs разделяет аргументы по пробелу и переносу строки. Если в имени файла есть пробел — он сломается. -print0 заставляет find разделять файлы нулевым байтом, -0 говорит xargs использовать нулевой байт как разделитель. Всегда используй для безопасной обработки имён файлов."
+          },
+          {
+            q: "Что такое stdin, stdout, stderr? Какие у них номера дескрипторов?",
+            a: "stdin (0) — стандартный ввод, откуда читает программа. stdout (1) — стандартный вывод, куда пишет результат. stderr (2) — стандартный поток ошибок. Поэтому 2>/dev/null выбрасывает именно ошибки. 1>&2 перенаправляет stdout в stderr (используется в скриптах для error сообщений)."
+          },
+          {
+            q: "Как выполнить команду для каждого файла найденного через <code>find</code>?",
+            a: "find /path -name '*.log' -exec ls -lh {} \\; — выполняет ls -lh для каждого файла. {} заменяется именем файла, \\; завершает -exec. Альтернатива: find /path -name '*.log' | xargs ls -lh — быстрее так как запускает ls один раз с множеством аргументов."
+          },
+          {
+            q: "Что делает <code>command &> file</code>? Чем отличается от <code>command > file 2>&1</code>?",
+            a: "&> file — bash shorthand для перенаправления и stdout и stderr в файл. Эквивалентно command > file 2>&1. Более короткая запись, но работает только в bash (не в sh). > file 2>&1 — более переносимый вариант, работает везде."
+          }
+        ]
+      }
+    ]
+  }
+};
+
+
+// ─── THEME ───────────────────────────────────────────────────────────────────
+function initTheme() {
+  const saved = localStorage.getItem('theme') || 'light';
+  applyTheme(saved);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  localStorage.setItem('theme', next);
+}
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+
+initTheme();
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let apiKey = '';
+let selectedModel = 'google/gemini-2.0-flash-001';
+let appMode = 'ai'; // 'ai' | 'offline'
+let selectedStages = ['stage-01'];
+let selectedMode = 'ordered';
+let selectedCount = 'mid';
+let queue = [];
+let retryQueue = [];
+let currentCard = null;
+let attempt = 0;
+let sessionStats = { correct: 0, partial: 0, wrong: 0 };
+let topicStats = {};
+let totalInSession = 0;
+let answeredInSession = 0;
+
+const COUNT_MAP = { low: 3, mid: 5, high: 8 };
+
+// ─── SCREENS ──────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── HOME ─────────────────────────────────────────────────────────────────────
+function chooseMode(mode) {
+  appMode = mode;
+  document.getElementById('mode-ai').classList.toggle('selected', mode === 'ai');
+  document.getElementById('mode-offline').classList.toggle('selected', mode === 'offline');
+
+  if (mode === 'ai') {
+    checkSavedKey();
+    showScreen('api-screen');
+  } else {
+    buildSetupScreen();
+    showScreen('setup-screen');
+  }
+}
+
+function goBack() {
+  showScreen(appMode === 'ai' ? 'api-screen' : 'home-screen');
+}
+
+// ─── LOCAL STORAGE ────────────────────────────────────────────────────────────
+function checkSavedKey() {
+  const saved = localStorage.getItem('or_api_key');
+  const savedModel = localStorage.getItem('or_model');
+  if (saved) {
+    document.getElementById('saved-key-section').style.display = 'block';
+    document.getElementById('new-key-form').style.display = 'none';
+    document.getElementById('saved-key-preview').textContent =
+      saved.slice(0, 8) + '...' + saved.slice(-4);
+    if (savedModel) {
+      document.getElementById('model-select').value = savedModel;
+    }
+  } else {
+    document.getElementById('saved-key-section').style.display = 'none';
+    document.getElementById('new-key-form').style.display = 'block';
+  }
+}
+
+function useSavedKey() {
+  apiKey = localStorage.getItem('or_api_key');
+  const savedModel = localStorage.getItem('or_model');
+  if (savedModel) selectedModel = savedModel;
+  buildSetupScreen();
+  showScreen('setup-screen');
+}
+
+function deleteSavedKey() {
+  localStorage.removeItem('or_api_key');
+  localStorage.removeItem('or_model');
+  document.getElementById('saved-key-section').style.display = 'none';
+  document.getElementById('new-key-form').style.display = 'block';
+}
+
+function showNewKeyForm() {
+  document.getElementById('saved-key-section').style.display = 'none';
+  document.getElementById('new-key-form').style.display = 'block';
+}
+
+// ─── API KEY ──────────────────────────────────────────────────────────────────
+function saveKey() {
+  const raw = document.getElementById('api-key-input').value;
+  const k = raw.trim().replace(/\s+/g, '');
+  if (!k || k.length < 10) {
+    alert('Введи API ключ (начинается с sk-or-...)');
+    return;
+  }
+  apiKey = k;
+  selectedModel = document.getElementById('model-select').value;
+
+  if (document.getElementById('save-key-checkbox').checked) {
+    localStorage.setItem('or_api_key', k);
+    localStorage.setItem('or_model', selectedModel);
+  }
+
+  buildSetupScreen();
+  showScreen('setup-screen');
+}
+
+// ─── SETUP ────────────────────────────────────────────────────────────────────
+function buildSetupScreen() {
+  const grid = document.getElementById('stage-grid');
+  grid.innerHTML = '';
+  Object.entries(DB).forEach(([id, stage]) => {
+    const total = stage.topics.reduce((s, t) => s + t.questions.length, 0);
+    const div = document.createElement('div');
+    div.className = 'stage-card' + (selectedStages.includes(id) ? ' selected' : '');
+    div.dataset.id = id;
+    div.innerHTML = `<div class="stage-name">${stage.label}</div><div class="stage-meta">${stage.topics.length} тем · ${total} вопросов</div><div class="check">✓</div>`;
+    div.onclick = () => toggleStage(div, id);
+    grid.appendChild(div);
+  });
+}
+
+function toggleStage(el, id) {
+  if (selectedStages.includes(id)) {
+    if (selectedStages.length === 1) return;
+    selectedStages = selectedStages.filter(s => s !== id);
+    el.classList.remove('selected');
+  } else {
+    selectedStages.push(id);
+    el.classList.add('selected');
+  }
+}
+
+function selectMode(el) {
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedMode = el.dataset.mode;
+}
+
+function selectCount(el) {
+  document.querySelectorAll('.count-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedCount = el.dataset.count;
+}
+
+// ─── SESSION ──────────────────────────────────────────────────────────────────
+function buildQueue() {
+  const n = COUNT_MAP[selectedCount];
+  let cards = [];
+  selectedStages.forEach(stageId => {
+    const stage = DB[stageId];
+    stage.topics.forEach(topic => {
+      let qs = [...topic.questions];
+      if (selectedMode !== 'ordered') qs = shuffle(qs);
+      qs.slice(0, n).forEach(q => cards.push({ ...q, topic: topic.name, stage: stage.label }));
+    });
+  });
+  if (selectedMode === 'random-all') cards = shuffle(cards);
+  return cards;
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startSession() {
+  queue = buildQueue();
+  retryQueue = [];
+  sessionStats = { correct: 0, partial: 0, wrong: 0 };
+  topicStats = {};
+  totalInSession = queue.length;
+  answeredInSession = 0;
+  queue.forEach(c => {
+    if (!topicStats[c.topic]) topicStats[c.topic] = { correct: 0, total: 0 };
+    topicStats[c.topic].total++;
+  });
+  showScreen('card-screen');
+  nextCard();
+}
+
+// ─── CARD FLOW ────────────────────────────────────────────────────────────────
+function nextCard() {
+  if (queue.length === 0 && retryQueue.length === 0) { showScore(); return; }
+  if (queue.length === 0) { queue = [...retryQueue]; retryQueue = []; }
+  currentCard = queue.shift();
+  attempt = 0;
+  renderCard();
+}
+
+function renderCard() {
+  document.getElementById('card-tag').textContent = currentCard.topic;
+  document.getElementById('question-text').innerHTML = currentCard.q;
+  document.getElementById('answer-input').value = '';
+  document.getElementById('answer-input').disabled = false;
+  document.getElementById('attempt-label').textContent = 'Попытка 1 из 2';
+  document.getElementById('result-box').style.display = 'none';
+  document.getElementById('correct-box').style.display = 'none';
+  document.getElementById('check-btn').style.display = '';
+  document.getElementById('check-btn').disabled = false;
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('dot1').className = 'attempt-dot';
+  document.getElementById('dot2').className = 'attempt-dot';
+  document.getElementById('offline-badge').style.display = appMode === 'offline' ? '' : 'none';
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = totalInSession > 0 ? Math.round((answeredInSession / totalInSession) * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${answeredInSession} / ${totalInSession}`;
+  document.getElementById('prog-correct').textContent = `✓ ${sessionStats.correct}`;
+}
+
+// ─── OFFLINE: COSINE SIMILARITY ──────────────────────────────────────────────
+function tokenize(text) {
+  return text.toLowerCase()
+    .replace(/[^\wа-яёА-ЯЁ\s]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 2);
+}
+
+function cosineSimilarity(textA, textB) {
+  const tokA = tokenize(textA);
+  const tokB = tokenize(textB);
+  const allWords = [...new Set([...tokA, ...tokB])];
+  const vecA = allWords.map(w => tokA.filter(t => t === w).length);
+  const vecB = allWords.map(w => tokB.filter(t => t === w).length);
+  const dot = vecA.reduce((s, v, i) => s + v * vecB[i], 0);
+  const magA = Math.sqrt(vecA.reduce((s, v) => s + v * v, 0));
+  const magB = Math.sqrt(vecB.reduce((s, v) => s + v * v, 0));
+  return (magA && magB) ? dot / (magA * magB) : 0;
+}
+
+function checkKeywords(userText, correctText) {
+  const correctTokens = tokenize(correctText);
+  const userTokens = tokenize(userText);
+  const uniqueCorrect = [...new Set(correctTokens)];
+  const matched = uniqueCorrect.filter(w => userTokens.includes(w));
+  return matched.length / uniqueCorrect.length;
+}
+
+function offlineCheck(userAnswer, correctAnswer) {
+  const sim = cosineSimilarity(userAnswer, correctAnswer);
+  const kw = checkKeywords(userAnswer, correctAnswer);
+  const score = sim * 0.6 + kw * 0.4;
+
+  if (score >= 0.35) return { verdict: 'correct', feedback: `Хорошо! Смысл передан верно (совпадение ${Math.round(score * 100)}%).` };
+  if (score >= 0.18) return { verdict: 'partial', feedback: `Частично верно — есть правильные элементы, но что-то важное упущено (совпадение ${Math.round(score * 100)}%).` };
+  return { verdict: 'wrong', feedback: `Ответ не совпадает с эталоном (совпадение ${Math.round(score * 100)}%). Посмотри правильный ответ.` };
+}
+
+// ─── CHECK ANSWER ─────────────────────────────────────────────────────────────
+async function checkAnswer() {
+  const userAnswer = document.getElementById('answer-input').value.trim();
+  if (!userAnswer) { alert('Напиши что-нибудь!'); return; }
+
+  attempt++;
+  if (attempt === 1) document.getElementById('dot1').className = 'attempt-dot used';
+  if (attempt === 2) document.getElementById('dot2').className = 'attempt-dot used';
+
+  const isFinal = attempt >= 2;
+  document.getElementById('check-btn').disabled = true;
+
+  if (appMode === 'offline') {
+    const result = offlineCheck(userAnswer, currentCard.a);
+    handleResult(result, isFinal);
+    return;
+  }
+
+  document.getElementById('loader').style.display = 'flex';
+
+  try {
+    const prompt = `Ты строгий преподаватель Linux/DevOps. Оцени ответ студента.
+Отвечай ТОЛЬКО JSON без markdown:
+{"verdict":"correct"|"partial"|"wrong","feedback":"1-2 предложения на русском: что верно и что упущено"}
+
+Вопрос: ${currentCard.q.replace(/<[^>]+>/g, '')}
+Эталонный ответ: ${currentCard.a}
+Ответ студента: ${userAnswer}`;
+
+    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify({ model: selectedModel, messages: [{ role: 'user', content: prompt }], max_tokens: 300 })
+    });
+
+    document.getElementById('loader').style.display = 'none';
+
+    if (!resp.ok) {
+      const errText = await resp.text();
+      if (resp.status === 429) throw new Error('Модель перегружена — подожди 30-60 секунд и попробуй снова');
+      let errMsg = 'HTTP ' + resp.status;
+      try { errMsg = JSON.parse(errText).error?.message || errMsg; } catch(e2) {}
+      throw new Error(errMsg);
+    }
+
+    const data = await resp.json();
+    let raw = data.choices?.[0]?.message?.content || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(raw);
+    handleResult(result, isFinal);
+
+  } catch(e) {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('check-btn').disabled = false;
+    alert('Ошибка: ' + e.message);
+  }
+}
+
+function handleResult(result, isFinal) {
+  document.getElementById('check-btn').disabled = false;
+
+  const box = document.getElementById('result-box');
+  box.className = `result-box ${result.verdict}`;
+  box.style.display = 'block';
+  const labels = { correct: '✓ Верно', partial: '◐ Частично', wrong: '✗ Неверно' };
+  document.getElementById('verdict-text').textContent = labels[result.verdict];
+  document.getElementById('result-feedback').textContent = result.feedback;
+
+  if (result.verdict === 'correct') {
+    document.getElementById('dot1').className = 'attempt-dot correct';
+    sessionStats.correct++;
+    if (topicStats[currentCard.topic]) topicStats[currentCard.topic].correct++;
+    answeredInSession++;
+    lockAndNext();
+  } else if (isFinal) {
+    if (result.verdict === 'partial') sessionStats.partial++;
+    else sessionStats.wrong++;
+    answeredInSession++;
+    document.getElementById('correct-text').textContent = currentCard.a;
+    document.getElementById('correct-box').style.display = 'block';
+    retryQueue.push(currentCard);
+    lockAndNext();
+  } else {
+    document.getElementById('attempt-label').textContent = 'Попытка 2 из 2 — последняя';
+  }
+  updateProgress();
+}
+
+function lockAndNext() {
+  document.getElementById('answer-input').disabled = true;
+  document.getElementById('check-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = '';
+}
+
+function quitSession() {
+  if (confirm('Завершить сессию и посмотреть результат?')) showScore();
+}
+
+// ─── SCORE ────────────────────────────────────────────────────────────────────
+function showScore() {
+  showScreen('score-screen');
+  const total = answeredInSession || 1;
+  const pts = sessionStats.correct + sessionStats.partial * 0.5;
+  const pct = Math.round((pts / total) * 100);
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('score-sub').textContent = `отвечено ${answeredInSession} из ${totalInSession} вопросов`;
+  document.getElementById('s-correct').textContent = sessionStats.correct;
+  document.getElementById('s-partial').textContent = sessionStats.partial;
+  document.getElementById('s-wrong').textContent = sessionStats.wrong;
+
+  const rows = document.getElementById('topic-rows');
+  rows.innerHTML = '';
+  Object.entries(topicStats).forEach(([topic, s]) => {
+    const p = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+    const row = document.createElement('div');
+    row.className = 'topic-row';
+    row.innerHTML = `<span class="topic-name">${topic}</span><span class="topic-score">${s.correct}/${s.total} · ${p}%</span>`;
+    rows.appendChild(row);
+  });
+}
+
+function restartSession() { startSession(); }
+</script>
+</body>
+</html>
