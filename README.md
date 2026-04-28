@@ -3,7 +3,7 @@
 Welcome to my technical roadmap. This repository is a comprehensive log of my engineering evolution, documented through hands-on practice, architectural decisions, and custom-built tools.
 
 > [!TIP]
-> 🛠 **Featured Project:** [DevOps Flashcards Tool](https://github.io)  
+> 🛠 **Featured Project:** [DevOps Flashcards Tool](https://maveliaih.github.io/devops-journey/)  
 > *A full-stack self-assessment engine covering the entire roadmap: from Git and Linux to Kubernetes, GitOps, and Chaos Engineering. Built to bridge the gap between theory and muscle memory.*
 
 ---
