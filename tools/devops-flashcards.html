@@ -359,6 +359,103 @@ code{
 }
 .theme-toggle:hover{border-color:var(--accent);transform:scale(1.05)}
 
+/* ── TOPIC GRID ── */
+.topic-select-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem}
+.topic-select-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:10px;
+  padding:.7rem .875rem;cursor:pointer;transition:border-color .15s,background .15s;
+  display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-sm);
+}
+.topic-select-card:hover{border-color:var(--accent)}
+.topic-select-card.selected{border-color:var(--accent);background:var(--accent-dim)}
+.topic-select-card .topic-check{
+  width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border);
+  background:var(--surface2);flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:10px;transition:background .15s,border-color .15s;
+}
+.topic-select-card.selected .topic-check{background:var(--accent);border-color:var(--accent);color:#fff}
+.topic-select-card .topic-label{font-size:12px;font-weight:500;color:var(--text-secondary);line-height:1.3}
+.topics-actions{display:flex;gap:8px;margin-bottom:1rem}
+.btn-tiny{font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
+.btn-tiny:hover{color:var(--accent);border-color:var(--accent)}
+.topics-section{display:none}
+
+/* ── WEAK TOPICS ── */
+.weak-topic-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  cursor:pointer;transition:border-color .15s;box-shadow:var(--shadow-sm);
+}
+.weak-topic-item:hover{border-color:var(--accent)}
+.weak-topic-item.selected{border-color:var(--accent);background:var(--accent-dim)}
+.weak-topic-item .wt-check{
+  width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);
+  background:var(--surface2);flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;font-size:11px;transition:background .15s,border-color .15s;
+}
+.weak-topic-item.selected .wt-check{background:var(--accent);border-color:var(--accent);color:#fff}
+.weak-topic-info{flex:1}
+.weak-topic-name{font-size:13px;font-weight:600;color:var(--text)}
+.weak-topic-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.weak-indicator{font-size:18px;flex-shrink:0}
+.progress-pill{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+  padding:2px 7px;border-radius:20px;flex-shrink:0;
+}
+.progress-pill.good{background:var(--green-dim);color:var(--green)}
+.progress-pill.meh{background:var(--yellow-dim);color:var(--yellow)}
+.progress-pill.bad{background:var(--red-dim);color:var(--red)}
+
+/* ── TIMER ── */
+.timer-wrap{
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;
+}
+.timer-ring{position:relative;width:52px;height:52px;flex-shrink:0}
+.timer-ring svg{transform:rotate(-90deg)}
+.timer-ring .ring-bg{fill:none;stroke:var(--border);stroke-width:4}
+.timer-ring .ring-fill{
+  fill:none;stroke:var(--accent);stroke-width:4;
+  stroke-linecap:round;
+  transition:stroke-dashoffset .9s linear, stroke .3s;
+}
+.timer-ring.warn .ring-fill{stroke:var(--yellow)}
+.timer-ring.danger .ring-fill{stroke:var(--red)}
+.timer-num{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--text);
+}
+.timer-ring.warn .timer-num{color:var(--yellow)}
+.timer-ring.danger .timer-num{color:var(--red)}
+
+.timer-setting{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:.875rem 1rem;margin-bottom:1.5rem;
+  box-shadow:var(--shadow-sm);
+}
+.timer-toggle-label{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.timer-toggle{
+  position:relative;width:40px;height:22px;
+  background:var(--border);border-radius:11px;cursor:pointer;
+  transition:background .2s;flex-shrink:0;border:none;
+}
+.timer-toggle.on{background:var(--accent)}
+.timer-toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:16px;height:16px;border-radius:50%;background:#fff;
+  transition:transform .2s;
+}
+.timer-toggle.on::after{transform:translateX(18px)}
+.timer-durations{display:none;gap:8px}
+.timer-durations.visible{display:flex}
+.timer-dur-btn{
+  flex:1;padding:7px;border-radius:8px;border:1.5px solid var(--border);
+  background:var(--surface2);font-size:12px;font-weight:600;color:var(--muted);
+  cursor:pointer;transition:border-color .15s,color .15s,background .15s;text-align:center;
+}
+.timer-dur-btn.selected{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
 /* ── MOBILE ── */
 @media(max-width:480px){
   body{padding:1.25rem .875rem 3rem}
@@ -393,6 +490,22 @@ code{
       <div class="icon">⚡</div>
       <div class="title">Оффлайн</div>
       <div class="desc">Без ключа. Сравнение по смыслу через алгоритм</div>
+    </div>
+  </div>
+  <div class="mode-choice" style="margin-top:0">
+    <div class="mode-big" id="mode-commands" onclick="chooseMode('commands')" style="grid-column:1/-1">
+      <div class="icon">⌨️</div>
+      <div class="title">Команды</div>
+      <div class="desc">Команда → объяснение · Описание → команда · Микс</div>
+    </div>
+  </div>
+  <div id="weak-btn-wrap" style="display:none;margin-top:0">
+    <div class="mode-choice">
+      <div class="mode-big" id="mode-weak" onclick="chooseMode('weak')" style="grid-column:1/-1;border-color:#dc2626">
+        <div class="icon">🔁</div>
+        <div class="title" style="color:#dc2626">Повторить слабые</div>
+        <div class="desc" id="weak-btn-desc">темы с результатом ниже 70%</div>
+      </div>
     </div>
   </div>
 </div>
@@ -448,6 +561,17 @@ code{
   <h2>Этап</h2>
   <div class="stage-grid" id="stage-grid"></div>
 
+  <div class="topics-section" id="topics-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+      <h2 style="margin-bottom:0">Темы</h2>
+      <div class="topics-actions">
+        <button class="btn-tiny" onclick="selectAllTopics()">Все</button>
+        <button class="btn-tiny" onclick="deselectAllTopics()">Сбросить</button>
+      </div>
+    </div>
+    <div class="topic-select-grid" id="topic-select-grid"></div>
+  </div>
+
   <h2>Режим</h2>
   <div class="mode-grid">
     <div class="mode-card selected" data-mode="ordered" onclick="selectMode(this)">
@@ -467,6 +591,27 @@ code{
     </div>
   </div>
 
+  <div id="cmd-submode-section" style="display:none">
+    <h2>Тип карточек</h2>
+    <div class="mode-grid" style="margin-bottom:1.5rem">
+      <div class="mode-card selected" data-submode="cmd-to-desc" onclick="selectCmdSubmode(this)">
+        <div class="mode-icon">→</div>
+        <div class="mode-name">Команда</div>
+        <div class="mode-desc">объясни что делает</div>
+      </div>
+      <div class="mode-card" data-submode="desc-to-cmd" onclick="selectCmdSubmode(this)">
+        <div class="mode-icon">←</div>
+        <div class="mode-name">Описание</div>
+        <div class="mode-desc">напиши команду</div>
+      </div>
+      <div class="mode-card" data-submode="mix" onclick="selectCmdSubmode(this)">
+        <div class="mode-icon">⇆</div>
+        <div class="mode-name">Микс</div>
+        <div class="mode-desc">случайно оба</div>
+      </div>
+    </div>
+  </div>
+
   <h2>Вопросов на тему</h2>
   <div class="count-grid">
     <div class="count-card" data-count="low" onclick="selectCount(this)">
@@ -483,8 +628,31 @@ code{
     </div>
   </div>
 
+  <div class="timer-setting">
+    <span class="timer-toggle-label">⏱ Таймер</span>
+    <div class="timer-durations" id="timer-durations">
+      <div class="timer-dur-btn selected" data-sec="30" onclick="selectDuration(this)">30с</div>
+      <div class="timer-dur-btn" data-sec="60" onclick="selectDuration(this)">60с</div>
+      <div class="timer-dur-btn" data-sec="90" onclick="selectDuration(this)">90с</div>
+    </div>
+    <button class="timer-toggle" id="timer-toggle" onclick="toggleTimer()"></button>
+  </div>
+
   <button class="btn" onclick="startSession()">Начать сессию →</button>
   <button class="btn btn-ghost" onclick="goBack()">← Назад</button>
+  <button class="btn btn-ghost" onclick="showScreen('home-screen')" style="margin-top:8px">⌂ На главную</button>
+</div>
+
+<!-- QUIT DIALOG -->
+<div id="quit-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;padding:1rem">
+  <div style="background:var(--surface);border-radius:16px;padding:1.5rem;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.2)">
+    <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:.5rem">Завершить сессию?</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:1.25rem">Текущий прогресс будет сохранён в результат.</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" style="flex:1;margin-top:0" onclick="hideQuitDialog()">Отмена</button>
+      <button class="btn btn-sm" style="flex:1;margin-top:0;background:#dc2626" onclick="hideQuitDialog();showScore()">Завершить</button>
+    </div>
+  </div>
 </div>
 
 <!-- CARD SCREEN -->
@@ -497,7 +665,7 @@ code{
         <span id="prog-correct">✓ 0</span>
       </div>
     </div>
-    <button class="quit-btn" onclick="quitSession()">завершить ×</button>
+    <button class="quit-btn" onclick="showQuitDialog()">завершить ×</button>
   </div>
 
   <div class="card">
@@ -507,6 +675,16 @@ code{
       <div class="attempt-dots" id="attempt-dots">
         <span class="attempt-dot" id="dot1"></span>
         <span class="attempt-dot" id="dot2"></span>
+      </div>
+    </div>
+    <div id="timer-wrap" class="timer-wrap" style="display:none">
+      <div class="timer-ring" id="timer-ring">
+        <svg width="52" height="52" viewBox="0 0 52 52">
+          <circle class="ring-bg" cx="26" cy="26" r="22"/>
+          <circle class="ring-fill" id="ring-fill" cx="26" cy="26" r="22"
+            stroke-dasharray="138.2" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-num" id="timer-num">—</div>
       </div>
     </div>
     <div class="question" id="question-text"></div>
@@ -538,6 +716,17 @@ code{
   </div>
 </div>
 
+<!-- WEAK TOPICS SCREEN -->
+<div id="weak-screen" class="screen" style="margin-top:2rem">
+  <div class="logo"><span class="logo-dot"></span>devops-flashcards / слабые темы</div>
+  <h1>Слабые темы</h1>
+  <p class="subtitle" id="weak-subtitle">Темы с результатом ниже 70%</p>
+  <div id="weak-topics-list" style="margin-bottom:1.5rem"></div>
+  <button class="btn" onclick="startWeakSession()">Начать повторение →</button>
+  <button class="btn btn-ghost" onclick="showScreen('home-screen')">← Назад</button>
+  <button class="btn btn-ghost" onclick="clearProgress()" style="margin-top:8px;color:#dc2626;border-color:#dc2626">Сбросить весь прогресс</button>
+</div>
+
 <!-- SCORE SCREEN -->
 <div id="score-screen" class="screen">
   <div class="logo"><span class="logo-dot"></span>результат</div>
@@ -554,6 +743,7 @@ code{
   </div>
   <button class="btn" onclick="restartSession()">Пройти ещё раз</button>
   <button class="btn btn-ghost" onclick="showScreen('setup-screen')">← Новая сессия</button>
+  <button class="btn btn-ghost" onclick="showScreen('home-screen')" style="margin-top:8px">⌂ На главную</button>
 </div>
 
 <script>
@@ -1005,6 +1195,223 @@ const DB = {
 };
 
 
+
+// ─── COMMANDS DB ─────────────────────────────────────────────────────────────
+const CMD_DB = {
+  "stage-00": {
+    label: "Этап 00: Git — Команды",
+    topics: [
+      {
+        name: "Git основы",
+        commands: [
+          { cmd: "git init", desc: "Инициализировать новый репозиторий" },
+          { cmd: "git clone git@github.com:user/repo.git", desc: "Клонировать репозиторий по SSH" },
+          { cmd: "git status", desc: "Показать статус рабочей директории и staging area" },
+          { cmd: "git add -p", desc: "Интерактивно выбрать части файла для добавления в staging" },
+          { cmd: "git diff --staged", desc: "Показать изменения уже добавленные в staging" },
+          { cmd: "git commit --amend", desc: "Изменить последний коммит (сообщение или содержимое)" },
+          { cmd: "git log --oneline --graph", desc: "Показать историю коммитов в виде графа" },
+          { cmd: "git log -S 'слово'", desc: "Найти коммиты где это слово было добавлено или удалено" },
+          { cmd: "git reset --soft HEAD~1", desc: "Отменить последний коммит, оставить изменения в staging" },
+          { cmd: "git reset --hard HEAD~1", desc: "Полностью удалить последний коммит вместе с изменениями" },
+          { cmd: "git stash", desc: "Сохранить незакоммиченные изменения во временное хранилище" },
+          { cmd: "git stash pop", desc: "Применить последнее сохранение из stash и удалить его" },
+          { cmd: "git reflog", desc: "Показать историю всех действий включая удалённые коммиты" }
+        ]
+      },
+      {
+        name: "Ветки и merge",
+        commands: [
+          { cmd: "git branch -a", desc: "Показать все ветки включая удалённые" },
+          { cmd: "git checkout -b feature/name", desc: "Создать новую ветку и сразу переключиться на неё" },
+          { cmd: "git merge --no-ff feature/name", desc: "Слить ветку создав merge commit (без fast-forward)" },
+          { cmd: "git rebase main", desc: "Перебазировать текущую ветку поверх main" },
+          { cmd: "git rebase -i HEAD~3", desc: "Интерактивный rebase последних 3 коммитов" },
+          { cmd: "git cherry-pick abc1234", desc: "Перенести конкретный коммит в текущую ветку" },
+          { cmd: "git bisect start", desc: "Начать бинарный поиск сломавшего коммита" },
+          { cmd: "git branch -d feature/name", desc: "Удалить ветку (только если влита)" },
+          { cmd: "git branch -D feature/name", desc: "Принудительно удалить ветку" }
+        ]
+      },
+      {
+        name: "GitHub и совместная работа",
+        commands: [
+          { cmd: "git remote -v", desc: "Показать все настроенные удалённые репозитории с URL" },
+          { cmd: "git fetch origin", desc: "Загрузить изменения с remote без применения" },
+          { cmd: "git pull --rebase origin main", desc: "Получить изменения и перебазировать вместо merge" },
+          { cmd: "git push -u origin feature/name", desc: "Запушить ветку и установить upstream" },
+          { cmd: "git push --force-with-lease", desc: "Force push с защитой от перезаписи чужих изменений" },
+          { cmd: "ssh-keygen -t ed25519 -C 'email@example.com'", desc: "Создать SSH ключ для GitHub" },
+          { cmd: "git config --global user.name 'Name'", desc: "Установить имя пользователя глобально" },
+          { cmd: "git tag -a v1.0.0 -m 'Release'", desc: "Создать аннотированный тег версии" }
+        ]
+      }
+    ]
+  },
+  "stage-01": {
+    label: "Этап 01: Linux — Команды",
+    topics: [
+      {
+        name: "Навигация и файлы",
+        commands: [
+          { cmd: "pwd", desc: "Показать текущую директорию" },
+          { cmd: "ls -la", desc: "Подробный список файлов включая скрытые" },
+          { cmd: "ls -lh", desc: "Список файлов с размерами в читаемом виде (KB/MB)" },
+          { cmd: "cd -", desc: "Перейти в предыдущую директорию" },
+          { cmd: "mkdir -p /opt/app/config", desc: "Создать директорию вместе со всеми родительскими" },
+          { cmd: "cp -r src/ dst/", desc: "Рекурсивно скопировать директорию" },
+          { cmd: "rm -rf dir/", desc: "Удалить директорию рекурсивно без подтверждения" },
+          { cmd: "ln -s /opt/app/v1.2 /opt/app/current", desc: "Создать символическую ссылку" },
+          { cmd: "readlink /opt/app/current", desc: "Показать на что указывает символическая ссылка" },
+          { cmd: "tail -f /var/log/syslog", desc: "Следить за файлом в реальном времени" },
+          { cmd: "less file.txt", desc: "Постраничный просмотр файла (q выход, / поиск)" },
+          { cmd: "head -20 file.txt", desc: "Показать первые 20 строк файла" }
+        ]
+      },
+      {
+        name: "Файловая система",
+        commands: [
+          { cmd: "cat /proc/version", desc: "Показать версию ядра Linux" },
+          { cmd: "cat /proc/uptime", desc: "Показать время работы системы в секундах" },
+          { cmd: "cat /proc/loadavg", desc: "Показать нагрузку за 1, 5 и 15 минут" },
+          { cmd: "cat /proc/meminfo | grep -E 'MemTotal|MemAvailable'", desc: "Показать общую и доступную RAM" },
+          { cmd: "echo 'текст' > /dev/null", desc: "Выбросить вывод в никуда" },
+          { cmd: "command 2>/dev/null", desc: "Подавить вывод ошибок команды" },
+          { cmd: "head -c 16 /dev/urandom | base64", desc: "Сгенерировать случайную строку" },
+          { cmd: "nproc", desc: "Показать количество доступных ядер CPU" },
+          { cmd: "ls /proc/$$", desc: "Показать файлы текущего процесса в /proc" }
+        ]
+      },
+      {
+        name: "Пользователи и права",
+        commands: [
+          { cmd: "id username", desc: "Показать UID, GID и все группы пользователя" },
+          { cmd: "whoami", desc: "Показать имя текущего пользователя" },
+          { cmd: "chmod 755 file", desc: "Установить права rwxr-xr-x" },
+          { cmd: "chmod 600 key.pem", desc: "Установить права только для владельца (приватные ключи)" },
+          { cmd: "chmod -R 644 /var/www/", desc: "Рекурсивно установить права на файлы" },
+          { cmd: "chown -R www-data:www-data /var/www/", desc: "Рекурсивно сменить владельца и группу" },
+          { cmd: "sudo useradd -m -s /bin/bash username", desc: "Создать пользователя с домашней директорией и bash" },
+          { cmd: "sudo usermod -aG docker username", desc: "Добавить пользователя в группу не заменяя существующие" },
+          { cmd: "sudo userdel -r username", desc: "Удалить пользователя вместе с домашней директорией" },
+          { cmd: "find / -perm -4000 -type f 2>/dev/null", desc: "Найти все файлы с SUID битом" },
+          { cmd: "sudo useradd --system --no-create-home --shell /usr/sbin/nologin svc", desc: "Создать системного пользователя без возможности входа" }
+        ]
+      },
+      {
+        name: "Процессы",
+        commands: [
+          { cmd: "ps aux --sort=-%cpu | head -10", desc: "Топ-10 процессов по CPU" },
+          { cmd: "ps aux --sort=-%mem | head -10", desc: "Топ-10 процессов по памяти" },
+          { cmd: "ps -ef --forest", desc: "Показать дерево процессов" },
+          { cmd: "pgrep -l nginx", desc: "Найти PID процессов по имени" },
+          { cmd: "kill -15 PID", desc: "SIGTERM — попросить процесс завершиться корректно" },
+          { cmd: "kill -9 PID", desc: "SIGKILL — убить процесс немедленно" },
+          { cmd: "kill -HUP PID", desc: "SIGHUP — перечитать конфиг без перезапуска" },
+          { cmd: "kill -STOP PID", desc: "Заморозить процесс" },
+          { cmd: "kill -CONT PID", desc: "Разморозить процесс" },
+          { cmd: "sleep 300 &", desc: "Запустить команду в фоне" },
+          { cmd: "jobs", desc: "Показать список фоновых задач текущего терминала" },
+          { cmd: "nohup command &", desc: "Запустить в фоне не убивая при закрытии терминала" },
+          { cmd: "killall nginx", desc: "SIGTERM всем процессам с именем nginx" }
+        ]
+      },
+      {
+        name: "Сервисы и логи",
+        commands: [
+          { cmd: "systemctl status nginx", desc: "Показать статус сервиса и последние строки лога" },
+          { cmd: "systemctl restart nginx", desc: "Перезапустить сервис (обрывает соединения)" },
+          { cmd: "systemctl reload nginx", desc: "Перечитать конфиг без перезапуска" },
+          { cmd: "systemctl enable --now nginx", desc: "Включить автозапуск и сразу запустить" },
+          { cmd: "systemctl daemon-reload", desc: "Перечитать unit-файлы после их изменения" },
+          { cmd: "systemctl list-units --type=service --state=failed", desc: "Показать все упавшие сервисы" },
+          { cmd: "journalctl -u nginx -f", desc: "Следить за логами сервиса в реальном времени" },
+          { cmd: "journalctl -u nginx --since '1 hour ago'", desc: "Логи сервиса за последний час" },
+          { cmd: "journalctl -u nginx -p err", desc: "Показать только ошибки сервиса" },
+          { cmd: "nginx -t", desc: "Проверить синтаксис конфига перед перезапуском" }
+        ]
+      },
+      {
+        name: "Диски и пакеты",
+        commands: [
+          { cmd: "df -hT | grep -v tmpfs", desc: "Показать использование дисков без tmpfs" },
+          { cmd: "df -i", desc: "Показать использование inodes" },
+          { cmd: "du -sh /var/log/", desc: "Показать суммарный размер директории" },
+          { cmd: "du -h --max-depth=1 /var/", desc: "Размер поддиректорий на один уровень вглубь" },
+          { cmd: "lsblk -f", desc: "Показать блочные устройства с типами ФС и UUID" },
+          { cmd: "sudo apt update", desc: "Обновить список доступных пакетов (только метаданные)" },
+          { cmd: "sudo apt install nginx -y", desc: "Установить пакет без подтверждения" },
+          { cmd: "sudo apt purge nginx", desc: "Удалить пакет вместе с конфигами" },
+          { cmd: "sudo apt autoremove", desc: "Удалить ненужные зависимости" },
+          { cmd: "dpkg -S /usr/bin/curl", desc: "Найти какой пакет предоставляет файл" }
+        ]
+      },
+      {
+        name: "Сеть и DNS",
+        commands: [
+          { cmd: "ip addr", desc: "Показать IP адреса всех сетевых интерфейсов" },
+          { cmd: "ip route", desc: "Показать таблицу маршрутизации" },
+          { cmd: "ss -tlnp", desc: "Показать все слушающие TCP порты с процессами" },
+          { cmd: "ss -tlnp | grep :80", desc: "Проверить кто слушает на порту 80" },
+          { cmd: "curl -o /dev/null -s -w '%{http_code}' https://site.com", desc: "Получить только HTTP код ответа" },
+          { cmd: "curl -I https://site.com", desc: "Получить только заголовки ответа (HEAD запрос)" },
+          { cmd: "ping -c 4 google.com", desc: "Отправить 4 ICMP пакета и остановиться" },
+          { cmd: "dig +short google.com", desc: "Получить только IP адрес домена" },
+          { cmd: "dig @8.8.8.8 google.com", desc: "Запросить DNS через Google DNS сервер" },
+          { cmd: "dig +trace google.com", desc: "Показать всю цепочку DNS резолюции" },
+          { cmd: "dig -x 8.8.8.8", desc: "Обратный DNS — получить имя по IP" },
+          { cmd: "cat /etc/resolv.conf", desc: "Показать какой DNS сервер использует система" }
+        ]
+      },
+      {
+        name: "SSH",
+        commands: [
+          { cmd: "ssh-keygen -t ed25519", desc: "Создать SSH ключ типа ed25519" },
+          { cmd: "ssh-add ~/.ssh/id_ed25519", desc: "Добавить ключ в SSH агент" },
+          { cmd: "ssh-add -l", desc: "Показать ключи загруженные в агент" },
+          { cmd: "ssh -G hostname", desc: "Показать все параметры SSH для хоста из config" },
+          { cmd: "ssh -L 5433:localhost:5432 server", desc: "Пробросить локальный порт 5433 на server:5432" },
+          { cmd: "ssh -R 8080:localhost:3000 server", desc: "Открыть порт 8080 на сервере трафик на localhost:3000" },
+          { cmd: "ssh -fNL 5433:localhost:5432 server", desc: "Запустить SSH туннель в фоне без открытия shell" },
+          { cmd: "chmod 700 ~/.ssh", desc: "Установить правильные права на директорию .ssh" },
+          { cmd: "chmod 600 ~/.ssh/id_ed25519", desc: "Установить правильные права на приватный ключ" }
+        ]
+      },
+      {
+        name: "Текстовые утилиты",
+        commands: [
+          { cmd: "grep -i 'error' /var/log/syslog", desc: "Поиск без учёта регистра" },
+          { cmd: "grep -r 'pattern' /etc/", desc: "Рекурсивный поиск по директории" },
+          { cmd: "grep -C 3 'ERROR' app.log", desc: "Показать 3 строки контекста вокруг совпадения" },
+          { cmd: "grep -E 'ERROR|WARN' app.log", desc: "Поиск по нескольким паттернам (OR)" },
+          { cmd: "sed -i 's/old/new/g' file.txt", desc: "Заменить все вхождения в файле на месте" },
+          { cmd: "sed -i.bak 's/old/new/g' file.txt", desc: "Заменить с созданием резервной копии" },
+          { cmd: "sed '/^#/d; /^$/d' config.txt", desc: "Удалить строки с комментариями и пустые строки" },
+          { cmd: "awk '{print $1}' file | sort | uniq -c | sort -rn | head -10", desc: "Топ-10 значений первого поля по частоте" },
+          { cmd: "awk -F: '{print $1, $3}' /etc/passwd", desc: "Вывести имя и UID из /etc/passwd" },
+          { cmd: "cut -d: -f1 /etc/passwd", desc: "Вывести первое поле с разделителем двоеточие" },
+          { cmd: "echo 'HELLO' | tr 'A-Z' 'a-z'", desc: "Преобразовать текст в нижний регистр" }
+        ]
+      },
+      {
+        name: "Пайплайны и перенаправление",
+        commands: [
+          { cmd: "command > file.txt", desc: "Перенаправить stdout в файл (перезапись)" },
+          { cmd: "command >> file.txt", desc: "Добавить stdout в конец файла" },
+          { cmd: "command 2>/dev/null", desc: "Выбросить stderr" },
+          { cmd: "command > file.txt 2>&1", desc: "Перенаправить stdout и stderr в файл" },
+          { cmd: "command &> file.txt", desc: "Перенаправить stdout и stderr в файл (bash shorthand)" },
+          { cmd: "ps aux | tee /tmp/snap.txt | grep nginx", desc: "Сохранить вывод в файл и продолжить pipeline" },
+          { cmd: "find /tmp -mtime +7 -type f", desc: "Найти файлы старше 7 дней" },
+          { cmd: "find /tmp -mmin -30 -type f", desc: "Найти файлы изменённые за последние 30 минут" },
+          { cmd: "find / -size +100M -type f 2>/dev/null", desc: "Найти файлы размером больше 100MB" },
+          { cmd: "find /tmp -mtime +7 -print0 | xargs -0 rm", desc: "Удалить файлы старше 7 дней безопасно" }
+        ]
+      }
+    ]
+  }
+};
+
 // ─── THEME ───────────────────────────────────────────────────────────────────
 function initTheme() {
   const saved = localStorage.getItem('theme') || 'light';
@@ -1029,12 +1436,156 @@ function applyTheme(theme) {
 }
 
 initTheme();
+updateWeakButton();
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let apiKey = '';
 let selectedModel = 'google/gemini-2.0-flash-001';
 let appMode = 'ai'; // 'ai' | 'offline'
 let selectedStages = ['stage-01'];
+let selectedTopics = {}; // { stageId: Set of topic names }
+let cmdSubmode = 'cmd-to-desc'; // 'cmd-to-desc' | 'desc-to-cmd' | 'mix'
+let timerEnabled = false;
+let timerDuration = 30;
+let timerInterval = null;
+let timerRemaining = 0;
+const RING_CIRCUMFERENCE = 138.2;
+let weakSelectedTopics = []; // [{stageId, topicName, type: 'theory'|'commands'}]
+
+// ─── TIMER ───────────────────────────────────────────────────────────────────
+function toggleTimer() {
+  timerEnabled = !timerEnabled;
+  const btn = document.getElementById('timer-toggle');
+  const dur = document.getElementById('timer-durations');
+  btn.classList.toggle('on', timerEnabled);
+  dur.classList.toggle('visible', timerEnabled);
+}
+
+function selectDuration(el) {
+  document.querySelectorAll('.timer-dur-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  timerDuration = parseInt(el.dataset.sec);
+}
+
+function startTimer() {
+  if (!timerEnabled) return;
+  stopTimer();
+  timerRemaining = timerDuration;
+  const wrap = document.getElementById('timer-wrap');
+  wrap.style.display = 'flex';
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    updateTimerDisplay();
+    if (timerRemaining <= 0) {
+      stopTimer();
+      onTimerExpired();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const ring = document.getElementById('timer-ring');
+  const fill = document.getElementById('ring-fill');
+  const num = document.getElementById('timer-num');
+  const pct = timerRemaining / timerDuration;
+  const offset = RING_CIRCUMFERENCE * (1 - pct);
+  fill.style.strokeDashoffset = offset;
+  num.textContent = timerRemaining;
+  ring.className = 'timer-ring';
+  if (pct <= 0.25) ring.classList.add('danger');
+  else if (pct <= 0.5) ring.classList.add('warn');
+}
+
+function onTimerExpired() {
+  // Time's up - count as wrong, show correct answer
+  const box = document.getElementById('result-box');
+  box.className = 'result-box wrong';
+  box.style.display = 'block';
+  document.getElementById('verdict-text').textContent = '⏱ Время вышло';
+  document.getElementById('result-feedback').textContent = 'Время на ответ истекло.';
+  document.getElementById('correct-text').textContent = currentCard.a;
+  document.getElementById('correct-box').style.display = 'block';
+  document.getElementById('answer-input').disabled = true;
+
+  if (attempt === 0) {
+    // Didn't even try - count as wrong
+    sessionStats.wrong++;
+    if (topicStats[currentCard.topic]) topicStats[currentCard.topic].total++;
+    answeredInSession++;
+    retryQueue.push(currentCard);
+  }
+  lockAndNext();
+  updateProgress();
+}
+
+// ─── PROGRESS STORAGE ────────────────────────────────────────────────────────
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem('df_progress') || '{}'); } catch(e) { return {}; }
+}
+
+function saveProgress(topicStatsData, mode) {
+  const progress = loadProgress();
+  const type = mode === 'commands' ? 'commands' : 'theory';
+  Object.entries(topicStatsData).forEach(([topic, s]) => {
+    const key = type + ':' + topic;
+    if (!progress[key]) progress[key] = { correct: 0, total: 0, sessions: 0 };
+    progress[key].correct += s.correct;
+    progress[key].total += s.total;
+    progress[key].sessions += 1;
+    progress[key].lastPct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+    progress[key].lastSession = Date.now();
+  });
+  localStorage.setItem('df_progress', JSON.stringify(progress));
+}
+
+function getTopicProgress(topicName, type) {
+  const progress = loadProgress();
+  const key = type + ':' + topicName;
+  return progress[key] || null;
+}
+
+function clearProgress() {
+  if (confirm('Сбросить весь прогресс по темам?')) {
+    localStorage.removeItem('df_progress');
+    updateWeakButton();
+    showScreen('home-screen');
+  }
+}
+
+function getProgressPill(pData) {
+  if (!pData || pData.total === 0) return null;
+  const pct = Math.round((pData.correct / pData.total) * 100);
+  if (pct >= 70) return { cls: 'good', text: pct + '%' };
+  if (pct >= 40) return { cls: 'meh', text: pct + '%' };
+  return { cls: 'bad', text: pct + '%' };
+}
+
+function updateWeakButton() {
+  const progress = loadProgress();
+  const weakTopics = Object.entries(progress).filter(([k, v]) => {
+    const pct = v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0;
+    return pct < 70;
+  });
+  const wrap = document.getElementById('weak-btn-wrap');
+  if (weakTopics.length > 0) {
+    wrap.style.display = 'block';
+    document.getElementById('weak-btn-desc').textContent =
+      weakTopics.length + ' ' + pluralize(weakTopics.length, 'тема', 'темы', 'тем') + ' ниже 70%';
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+function pluralize(n, one, few, many) {
+  if (n % 10 === 1 && n % 100 !== 11) return one;
+  if ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100)) return few;
+  return many;
+}
 let selectedMode = 'ordered';
 let selectedCount = 'mid';
 let queue = [];
@@ -1060,14 +1611,136 @@ function chooseMode(mode) {
   appMode = mode;
   document.getElementById('mode-ai').classList.toggle('selected', mode === 'ai');
   document.getElementById('mode-offline').classList.toggle('selected', mode === 'offline');
+  document.getElementById('mode-commands').classList.toggle('selected', mode === 'commands');
+
+  if (mode === 'weak') {
+    buildWeakScreen();
+    showScreen('weak-screen');
+    return;
+  }
 
   if (mode === 'ai') {
     checkSavedKey();
     showScreen('api-screen');
   } else {
     buildSetupScreen();
+    document.getElementById('cmd-submode-section').style.display = mode === 'commands' ? 'block' : 'none';
     showScreen('setup-screen');
   }
+}
+
+function buildWeakScreen() {
+  const progress = loadProgress();
+  const list = document.getElementById('weak-topics-list');
+  list.innerHTML = '';
+  weakSelectedTopics = [];
+
+  const weakEntries = Object.entries(progress)
+    .map(([key, v]) => {
+      const [type, ...nameParts] = key.split(':');
+      const topicName = nameParts.join(':');
+      const pct = v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0;
+      return { key, type, topicName, pct, data: v };
+    })
+    .filter(e => e.pct < 70)
+    .sort((a, b) => a.pct - b.pct);
+
+  if (weakEntries.length === 0) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:14px;text-align:center;padding:2rem 0">Нет слабых тем — все выше 70%! 🎉</p>';
+    return;
+  }
+
+  document.getElementById('weak-subtitle').textContent =
+    weakEntries.length + ' ' + pluralize(weakEntries.length, 'тема', 'темы', 'тем') + ' ниже 70%';
+
+  weakEntries.forEach(e => {
+    const icon = e.pct >= 40 ? '🟡' : '🔴';
+    const typeLabel = e.type === 'commands' ? '⌨️ команды' : '📚 теория';
+    const div = document.createElement('div');
+    div.className = 'weak-topic-item selected';
+    div.innerHTML = `
+      <div class="wt-check">✓</div>
+      <div class="weak-info" style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${e.topicName}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">${typeLabel} · ${e.data.correct}/${e.data.total} верно</div>
+      </div>
+      <span class="progress-pill ${e.pct >= 40 ? 'meh' : 'bad'}">${icon} ${e.pct}%</span>
+    `;
+    div.onclick = () => {
+      const isSelected = div.classList.toggle('selected');
+      div.querySelector('.wt-check').textContent = isSelected ? '✓' : '';
+      weakSelectedTopics = getSelectedWeakTopics();
+    };
+    list.appendChild(div);
+    weakSelectedTopics.push({ type: e.type, topicName: e.topicName });
+  });
+}
+
+function getSelectedWeakTopics() {
+  const items = document.querySelectorAll('.weak-topic-item.selected');
+  const progress = loadProgress();
+  return [...items].map(el => {
+    const name = el.querySelector('[style*="font-weight:600"]').textContent;
+    const meta = el.querySelector('[style*="font-size:11px"]').textContent;
+    const type = meta.includes('команды') ? 'commands' : 'theory';
+    return { topicName: name, type };
+  });
+}
+
+function startWeakSession() {
+  const selected = getSelectedWeakTopics();
+  if (selected.length === 0) { alert('Выбери хотя бы одну тему'); return; }
+
+  // Build mixed queue from weak topics
+  const n = COUNT_MAP['mid'];
+  let cards = [];
+
+  selected.forEach(({ topicName, type }) => {
+    const sourceDB = type === 'commands' ? CMD_DB : DB;
+    Object.entries(sourceDB).forEach(([stageId, stage]) => {
+      const topic = stage.topics.find(t => t.name === topicName);
+      if (!topic) return;
+      if (type === 'commands') {
+        shuffle([...topic.commands]).slice(0, n).forEach(c => {
+          const direction = Math.random() > 0.5 ? 'cmd-to-desc' : 'desc-to-cmd';
+          cards.push({
+            q: direction === 'cmd-to-desc' ? `Что делает команда: <code>${c.cmd}</code>` : `Напиши команду: ${c.desc}`,
+            a: direction === 'cmd-to-desc' ? c.desc : c.cmd,
+            isCommand: true, direction, cmd: c.cmd, desc: c.desc,
+            topic: topic.name, stage: stage.label
+          });
+        });
+      } else {
+        shuffle([...topic.questions]).slice(0, n).forEach(q => {
+          cards.push({ ...q, topic: topic.name, stage: stage.label });
+        });
+      }
+    });
+  });
+
+  // Set appMode based on mixed content
+  appMode = selected.some(s => s.type === 'commands') && selected.some(s => s.type === 'theory')
+    ? 'offline' : selected[0].type === 'commands' ? 'commands' : 'offline';
+
+  queue = shuffle(cards);
+  retryQueue = [];
+  sessionStats = { correct: 0, partial: 0, wrong: 0 };
+  topicStats = {};
+  totalInSession = queue.length;
+  answeredInSession = 0;
+  queue.forEach(c => {
+    if (!topicStats[c.topic]) topicStats[c.topic] = { correct: 0, total: 0 };
+    topicStats[c.topic].total++;
+  });
+
+  showScreen('card-screen');
+  nextCard();
+}
+
+function selectCmdSubmode(el) {
+  document.querySelectorAll('[data-submode]').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  cmdSubmode = el.dataset.submode;
 }
 
 function goBack() {
@@ -1136,8 +1809,11 @@ function saveKey() {
 function buildSetupScreen() {
   const grid = document.getElementById('stage-grid');
   grid.innerHTML = '';
-  Object.entries(DB).forEach(([id, stage]) => {
-    const total = stage.topics.reduce((s, t) => s + t.questions.length, 0);
+  const sourceDB = appMode === 'commands' ? CMD_DB : DB;
+  Object.entries(sourceDB).forEach(([id, stage]) => {
+    const total = appMode === 'commands'
+      ? stage.topics.reduce((s, t) => s + t.commands.length, 0)
+      : stage.topics.reduce((s, t) => s + t.questions.length, 0);
     const div = document.createElement('div');
     div.className = 'stage-card' + (selectedStages.includes(id) ? ' selected' : '');
     div.dataset.id = id;
@@ -1145,6 +1821,73 @@ function buildSetupScreen() {
     div.onclick = () => toggleStage(div, id);
     grid.appendChild(div);
   });
+  buildTopicGrid();
+}
+
+function buildTopicGrid() {
+  const section = document.getElementById('topics-section');
+  const grid = document.getElementById('topic-select-grid');
+  grid.innerHTML = '';
+
+  // Collect all topics from selected stages
+  const allTopics = [];
+  const sourceDB = appMode === 'commands' ? CMD_DB : DB;
+  selectedStages.forEach(stageId => {
+    const stage = sourceDB[stageId];
+    if (!stage) return;
+    if (!selectedTopics[stageId]) {
+      selectedTopics[stageId] = new Set(stage.topics.map(t => t.name));
+    }
+    stage.topics.forEach(t => allTopics.push({
+      stageId, name: t.name,
+      count: appMode === 'commands' ? t.commands.length : t.questions.length
+    }));
+  });
+
+  if (allTopics.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  allTopics.forEach(({ stageId, name, count }) => {
+    const isSelected = selectedTopics[stageId] && selectedTopics[stageId].has(name);
+    const div = document.createElement('div');
+    div.className = 'topic-select-card' + (isSelected ? ' selected' : '');
+    const type = appMode === 'commands' ? 'commands' : 'theory';
+    const pData = getTopicProgress(name, type);
+    const pill = pData ? getProgressPill(pData) : null;
+    const pillHtml = pill ? `<span class="progress-pill ${pill.cls}" style="margin-left:auto">${pill.text}</span>` : '';
+    div.innerHTML = `<div class="topic-check">${isSelected ? '✓' : ''}</div><div class="topic-label">${name}<br><span style="font-size:10px;color:var(--muted)">${count} вопр.</span></div>${pillHtml}`;
+    div.onclick = () => toggleTopic(div, stageId, name);
+    grid.appendChild(div);
+  });
+}
+
+function toggleTopic(el, stageId, name) {
+  if (!selectedTopics[stageId]) selectedTopics[stageId] = new Set();
+  if (selectedTopics[stageId].has(name)) {
+    if (selectedTopics[stageId].size === 1) return; // минимум 1 тема
+    selectedTopics[stageId].delete(name);
+    el.classList.remove('selected');
+    el.querySelector('.topic-check').textContent = '';
+  } else {
+    selectedTopics[stageId].add(name);
+    el.classList.add('selected');
+    el.querySelector('.topic-check').textContent = '✓';
+  }
+}
+
+function selectAllTopics() {
+  selectedStages.forEach(stageId => {
+    selectedTopics[stageId] = new Set(DB[stageId].topics.map(t => t.name));
+  });
+  buildTopicGrid();
+}
+
+function deselectAllTopics() {
+  selectedStages.forEach(stageId => {
+    // Оставляем первую тему
+    selectedTopics[stageId] = new Set([DB[stageId].topics[0].name]);
+  });
+  buildTopicGrid();
 }
 
 function toggleStage(el, id) {
@@ -1156,6 +1899,7 @@ function toggleStage(el, id) {
     selectedStages.push(id);
     el.classList.add('selected');
   }
+  buildTopicGrid();
 }
 
 function selectMode(el) {
@@ -1174,14 +1918,48 @@ function selectCount(el) {
 function buildQueue() {
   const n = COUNT_MAP[selectedCount];
   let cards = [];
-  selectedStages.forEach(stageId => {
-    const stage = DB[stageId];
-    stage.topics.forEach(topic => {
-      let qs = [...topic.questions];
-      if (selectedMode !== 'ordered') qs = shuffle(qs);
-      qs.slice(0, n).forEach(q => cards.push({ ...q, topic: topic.name, stage: stage.label }));
+
+  if (appMode === 'commands') {
+    selectedStages.forEach(stageId => {
+      const stage = CMD_DB[stageId];
+      if (!stage) return;
+      const allowedTopics = selectedTopics[stageId] || new Set(stage.topics.map(t => t.name));
+      stage.topics.forEach(topic => {
+        if (!allowedTopics.has(topic.name)) return;
+        let cmds = [...topic.commands];
+        if (selectedMode !== 'ordered') cmds = shuffle(cmds);
+        cmds.slice(0, n).forEach(c => {
+          // Determine direction for this card
+          let direction = cmdSubmode;
+          if (cmdSubmode === 'mix') direction = Math.random() > 0.5 ? 'cmd-to-desc' : 'desc-to-cmd';
+          cards.push({
+            q: direction === 'cmd-to-desc'
+              ? `Что делает команда: <code>${c.cmd}</code>`
+              : `Напиши команду: ${c.desc}`,
+            a: direction === 'cmd-to-desc' ? c.desc : c.cmd,
+            isCommand: true,
+            direction,
+            cmd: c.cmd,
+            desc: c.desc,
+            topic: topic.name,
+            stage: stage.label
+          });
+        });
+      });
     });
-  });
+  } else {
+    selectedStages.forEach(stageId => {
+      const stage = DB[stageId];
+      const allowedTopics = selectedTopics[stageId] || new Set(stage.topics.map(t => t.name));
+      stage.topics.forEach(topic => {
+        if (!allowedTopics.has(topic.name)) return;
+        let qs = [...topic.questions];
+        if (selectedMode !== 'ordered') qs = shuffle(qs);
+        qs.slice(0, n).forEach(q => cards.push({ ...q, topic: topic.name, stage: stage.label }));
+      });
+    });
+  }
+
   if (selectedMode === 'random-all') cards = shuffle(cards);
   return cards;
 }
@@ -1234,6 +2012,10 @@ function renderCard() {
   document.getElementById('dot1').className = 'attempt-dot';
   document.getElementById('dot2').className = 'attempt-dot';
   document.getElementById('offline-badge').style.display = appMode === 'offline' ? '' : 'none';
+  // Timer
+  document.getElementById('timer-wrap').style.display = 'none';
+  stopTimer();
+  startTimer();
   updateProgress();
 }
 
@@ -1294,8 +2076,22 @@ async function checkAnswer() {
   const isFinal = attempt >= 2;
   document.getElementById('check-btn').disabled = true;
 
-  if (appMode === 'offline') {
-    const result = offlineCheck(userAnswer, currentCard.a);
+  if (appMode === 'offline' || appMode === 'commands') {
+    let result;
+    if (currentCard.isCommand && currentCard.direction === 'desc-to-cmd') {
+      // Strict check for commands
+      const ua = userAnswer.trim().toLowerCase().replace(/\s+/g, ' ');
+      const ca = currentCard.a.trim().toLowerCase().replace(/\s+/g, ' ');
+      if (ua === ca) {
+        result = { verdict: 'correct', feedback: 'Точное совпадение!' };
+      } else if (cosineSimilarity(ua, ca) > 0.6) {
+        result = { verdict: 'partial', feedback: 'Близко, но есть отличия от эталонной команды.' };
+      } else {
+        result = { verdict: 'wrong', feedback: 'Команда не совпадает с эталоном.' };
+      }
+    } else {
+      result = offlineCheck(userAnswer, currentCard.a);
+    }
     handleResult(result, isFinal);
     return;
   }
@@ -1303,13 +2099,29 @@ async function checkAnswer() {
   document.getElementById('loader').style.display = 'flex';
 
   try {
-    const prompt = `Ты строгий преподаватель Linux/DevOps. Оцени ответ студента.
+    let prompt;
+    if (currentCard.isCommand && currentCard.direction === 'desc-to-cmd') {
+      prompt = `Ты строгий преподаватель Linux/DevOps. Студент должен написать команду.
+Отвечай ТОЛЬКО JSON без markdown:
+{"verdict":"correct"|"partial"|"wrong","feedback":"1 предложение на русском"}
+
+Правила оценки:
+- correct: команда правильная или эквивалентная (незначительные отличия в аргументах допустимы)
+- partial: основная команда верна но важные флаги/аргументы отсутствуют
+- wrong: команда неверная
+
+Задание: ${currentCard.q.replace(/<[^>]+>/g, '')}
+Эталонная команда: ${currentCard.a}
+Ответ студента: ${userAnswer}`;
+    } else {
+      prompt = `Ты строгий преподаватель Linux/DevOps. Оцени ответ студента.
 Отвечай ТОЛЬКО JSON без markdown:
 {"verdict":"correct"|"partial"|"wrong","feedback":"1-2 предложения на русском: что верно и что упущено"}
 
 Вопрос: ${currentCard.q.replace(/<[^>]+>/g, '')}
 Эталонный ответ: ${currentCard.a}
 Ответ студента: ${userAnswer}`;
+    }
 
     const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -1371,17 +2183,28 @@ function handleResult(result, isFinal) {
 }
 
 function lockAndNext() {
+  stopTimer();
   document.getElementById('answer-input').disabled = true;
   document.getElementById('check-btn').style.display = 'none';
   document.getElementById('next-btn').style.display = '';
 }
 
-function quitSession() {
-  if (confirm('Завершить сессию и посмотреть результат?')) showScore();
+function showQuitDialog() {
+  stopTimer();
+  const el = document.getElementById('quit-overlay');
+  el.style.display = 'flex';
 }
+function hideQuitDialog() {
+  document.getElementById('quit-overlay').style.display = 'none';
+}
+function quitSession() { showQuitDialog(); }
 
 // ─── SCORE ────────────────────────────────────────────────────────────────────
 function showScore() {
+  // Save progress to localStorage
+  saveProgress(topicStats, appMode);
+  updateWeakButton();
+
   showScreen('score-screen');
   const total = answeredInSession || 1;
   const pts = sessionStats.correct + sessionStats.partial * 0.5;
@@ -1394,11 +2217,13 @@ function showScore() {
 
   const rows = document.getElementById('topic-rows');
   rows.innerHTML = '';
+  const type = appMode === 'commands' ? 'commands' : 'theory';
   Object.entries(topicStats).forEach(([topic, s]) => {
     const p = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+    const pill = p >= 70 ? '🟢' : p >= 40 ? '🟡' : '🔴';
     const row = document.createElement('div');
     row.className = 'topic-row';
-    row.innerHTML = `<span class="topic-name">${topic}</span><span class="topic-score">${s.correct}/${s.total} · ${p}%</span>`;
+    row.innerHTML = `<span class="topic-name">${pill} ${topic}</span><span class="topic-score">${s.correct}/${s.total} · ${p}%</span>`;
     rows.appendChild(row);
   });
 }
